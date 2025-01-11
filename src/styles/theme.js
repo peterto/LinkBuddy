@@ -1,0 +1,60 @@
+import { createTheme } from "@rneui/themed";
+import { darkModeColors, defaultColors, lightModeColors } from "./base";
+
+export const themeRNEUI = createTheme({
+  lightColors: {
+    primary: lightModeColors.primary,
+    secondary: lightModeColors.secondary,
+    background: lightModeColors.background,
+    backgroundPlaceHolder: lightModeColors.backgroundPlaceHolder,
+    white: defaultColors.seasalt,
+    black: defaultColors.richBlack,
+    grey0: defaultColors.ghostBlue,
+    success: defaultColors.celadon,
+    warning: defaultColors.hunyadiYellow,
+    error: defaultColors.lightCoral,
+    disabled: defaultColors.ghostBlue,
+    inputText: defaultColors.richBlack,
+    placeholderText: defaultColors.lightGrey,
+    border: defaultColors.lightGrey,
+    titleText: defaultColors.richBlack,
+    buttonColor: defaultColors.blue,
+    accent: lightModeColors.accent,
+    text: lightModeColors.text,
+    buttonText: lightModeColors.buttonText,
+    warning: lightModeColors.warning,
+    save: lightModeColors.save,
+    loading: lightModeColors.loading,
+  },
+  darkColors: {
+    primary: darkModeColors.primary,
+    secondary: darkModeColors.secondary,
+    background: darkModeColors.background,
+    backgroundPlaceHolder: darkModeColors.backgroundPlaceHolder,
+    white: defaultColors.seasalt,
+    black: defaultColors.richBlack,
+    grey0: defaultColors.ghostBlue,
+    success: defaultColors.celadon,
+    warning: defaultColors.hunyadiYellow,
+    error: defaultColors.lightCoral,
+    disabled: defaultColors.ghostBlue,
+    inputText: defaultColors.seasalt,
+    placeholderText: defaultColors.lightGrey,
+    border: defaultColors.lightGrey,
+    titleText: defaultColors.beige,
+    buttonColor: defaultColors.blue,
+    accent: darkModeColors.accent,
+    text: darkModeColors.text,
+    buttonText: darkModeColors.buttonText,
+    warning: darkModeColors.warning,
+    save: lightModeColors.save,
+    loading: lightModeColors.loading,
+  },
+  components: {
+    Button: {
+      raised: false,
+    },
+  },
+});
+
+// export default themeRNEUI;
