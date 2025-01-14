@@ -4,14 +4,14 @@ import {
   Text,
   StyleSheet,
   TouchableOpacity,
-  useColorScheme,
-  Switch,
+  Pressable,
 } from "react-native";
 import * as SecureStore from "expo-secure-store";
 import LinkdingApi from "../services/LinkdingApi";
 import { useTheme } from "@rneui/themed";
-import { navigationRef } from "../../App";
 import useAuthStore from "../store/useAuthStore";
+import * as Linking from "expo-linking";
+import * as WebBrowser from "expo-web-browser";
 
 const SettingsScreen = ({ navigation }) => {
   const logout = useAuthStore((state) => state.logout);
@@ -135,6 +135,22 @@ const SettingsScreen = ({ navigation }) => {
     }
   };
 
+  const handlePress = () => {
+    const url = "https://linkding.link/";
+    Linking.openURL(url);
+  };
+
+  const handleEmailPress = () => {
+    const email = "mailto:linkbuddyapp@gmail.com";
+    const subject = "LinkBuddy [Support Request]";
+    const body = `App Version: ${appVersion}`;
+
+    const mailtoUrl = `mailto:${email}?subject=${encodeURIComponent(
+      subject
+    )}&body=${encodeURIComponent(body)}`;
+    Linking.openURL(mailtoUrl);
+  };
+
   return (
     <View
       style={[styles.container, { backgroundColor: theme.colors.background }]}
@@ -219,6 +235,44 @@ const SettingsScreen = ({ navigation }) => {
           {appVersion}
         </Text>
       </View>
+
+      <Pressable
+        style={({ pressed }) => [
+          {
+            opacity: pressed ? 0.2 : 1,
+            backgroundColor: theme.colors.background,
+          },
+        ]}
+        onPress={handlePress}
+      >
+        <View style={styles.section}>
+          <Text style={[styles.label, { color: theme.colors.primary }]}>
+            More Info About Linkding
+          </Text>
+          <Text style={[styles.value, { color: theme.colors.text }]} selectable>
+            {"https://linkding.link/"}
+          </Text>
+        </View>
+      </Pressable>
+
+      <Pressable
+        style={({ pressed }) => [
+          {
+            opacity: pressed ? 0.2 : 1,
+            backgroundColor: theme.colors.background,
+          },
+        ]}
+        onPress={handleEmailPress}
+      >
+        <View style={styles.section}>
+          <Text style={[styles.label, { color: theme.colors.primary }]}>
+            Contact Me for any questions or support
+          </Text>
+          <Text style={[styles.value, { color: theme.colors.text }]} selectable>
+            linkbuddyapp@gmail.com
+          </Text>
+        </View>
+      </Pressable>
 
       <TouchableOpacity
         style={[styles.logoutButton, { backgroundColor: theme.colors.warning }]}

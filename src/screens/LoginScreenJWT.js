@@ -65,7 +65,7 @@ const LoginScreen = ({ navigation }) => {
         ]}
       >
         <Text style={[styles.title, { color: theme.colors.text }]}>
-          Linkding
+          Linkbuddy for Linkding
         </Text>
         <TextInput
           placeholder="Server URL (e.g. https://linkding.example.com)"

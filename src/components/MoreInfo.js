@@ -12,7 +12,7 @@ const MoreInfo = () => {
   return (
     <View style={[styles.moreInfoLinkView]}>
       <Button
-        title="A selfhosted instance of LinkDing is required. More information here."
+        title="A selfhosted instance of Linkding is required. More information here."
         onPress={handleMoreInfoLinkText}
         color={theme.colors.primary}
       />
