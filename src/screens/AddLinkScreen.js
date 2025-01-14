@@ -348,11 +348,12 @@ const AddLinkScreen = ({ navigation }) => {
                   borderColor: theme.colors.text,
                 },
               ]}
-              placeholder="Tags (comma-separated)"
+              placeholder="tag1, tag2, tag3,..."
               placeholderTextColor={theme.colors.placeholderTextColor}
               value={tags}
               onChangeText={setTags}
               color={theme.colors.text}
+              autoCapitalize="none"
             />
 
             <TextInput

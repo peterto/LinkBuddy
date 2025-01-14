@@ -25,6 +25,9 @@ export const themeRNEUI = createTheme({
     warning: lightModeColors.warning,
     save: lightModeColors.save,
     loading: lightModeColors.loading,
+    edit: lightModeColors.edit,
+    archive: lightModeColors.archive,
+    delete: lightModeColors.delete,
   },
   darkColors: {
     primary: darkModeColors.primary,
@@ -49,6 +52,9 @@ export const themeRNEUI = createTheme({
     warning: darkModeColors.warning,
     save: lightModeColors.save,
     loading: lightModeColors.loading,
+    edit: darkModeColors.edit,
+    archive: darkModeColors.archive,
+    delete: darkModeColors.delete,
   },
   components: {
     Button: {

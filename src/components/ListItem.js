@@ -163,13 +163,13 @@ const ListItem = ({
     return (
       <View style={styles.rightActions}>
         <TouchableOpacity
-          style={[styles.actionButton, styles.editButton]}
+          style={[styles.actionButton, { backgroundColor: theme.colors.edit }]}
           // onPress={() =>
           //   navigation.navigate("BookmarkScreen", { bookmark: item.id })
           // }
           onPress={handleEdit}
         >
-          <Text style={[styles.actionText, { color: theme.colors.text }]}>
+          <Text style={[styles.actionText, { color: theme.colors.text, backgroundColor: theme.colors.edit }]}>
             Edit
           </Text>
         </TouchableOpacity>
@@ -180,20 +180,20 @@ const ListItem = ({
           <Text style={[styles.actionText, {color: theme.colors.text}]}>Archive</Text>
         </TouchableOpacity> */}
         <TouchableOpacity
-          style={[styles.actionButton, styles.archiveButton]}
+          style={[styles.actionButton, { backgroundColor: theme.colors.archive }]}
           // onPress={item.is_archived ? handleUnarchive : handleArchive}
           onPress={isArchiveScreen ? handleUnarchive : handleArchive}
         >
-          <Text style={[styles.actionText, { color: theme.colors.text }]}>
+          <Text style={[styles.actionText, { color: theme.colors.text, backgroundColor: theme.colors.archive }]}>
             {/* {item.is_archived ? "Unarchive" : "Archive"} */}
             {isArchiveScreen ? "Unarchive" : "Archive"}
           </Text>
         </TouchableOpacity>
         <TouchableOpacity
-          style={[styles.actionButton, styles.deleteButton]}
+          style={[styles.actionButton, { backgroundColor: theme.colors.delete }]}
           onPress={handleDelete}
         >
-          <Text style={[styles.actionText, { color: theme.colors.text }]}>
+          <Text style={[styles.actionText, { color: theme.colors.text, backgroundColor: theme.colors.delete }]}>
             Delete
           </Text>
         </TouchableOpacity>
@@ -247,7 +247,7 @@ const ListItem = ({
               ]}
             >
               <View style={styles.cardContent}>
-                {item.preview_image_url && (
+                {item.preview_image_url ? (
                   <Pressable
                     style={({ pressed }) => [
                       {
@@ -266,48 +266,53 @@ const ListItem = ({
                       resizeMode="cover"
                     />
                   </Pressable>
-                )}
-                <View style={styles.textContent}>
-                  <Pressable
-                    // style={({ pressed }) => pressed ? { color: theme.colors.border } : { color: theme.colors.text }}
-                    style={({ pressed }) => [
+                ) : (
+                  <View
+                    style={[
+                      styles.image,
                       {
-                        opacity: pressed ? 0.2 : 1,
                         backgroundColor: theme.colors.background,
                       },
-                      // styles.button,
                     ]}
-                    // onPress={() => _handlePressButtonAsync(item.url)}
-                    onPress={handleUrlPress}
-                    // delayPressIn={200}
-                    // disabled={isSwipeActive}
-                    // activeOpacity={0.7}
-                  >
-                    <Text
-                      style={[styles.title, { color: theme.colors.text }]}
-                      // style={[styles.title, ({ pressed }) => pressed ? { color: theme.colors.warning } : { color: theme.colors.warning }]}
-                      numberOfLines={3}
-                      ellipsizeMode="tail"
-                    >
-                      {item.title}
-                    </Text>
-                  </Pressable>
-                  {/* <TouchableOpacity
-                    onPress={() => _handlePressButtonAsync(item.url)}
-                  >
-                    <Text style={[styles.url, { color: theme.colors.primary }]}>
-                      {item.url}
-                    </Text>
-                  </TouchableOpacity> */}
-                  <View style={styles.metadataRow}>
-                    <Text style={[styles.domain, { color: theme.colors.text }]}>
-                      {getDomainFromUrl(item.url)}
-                    </Text>
-                    <Text style={[styles.date, { color: theme.colors.text }]}>
-                      {moment(item.date_added).format("MMMM D, YYYY")}
-                    </Text>
+                  />
+                )}
+                <Pressable
+                  // style={({ pressed }) => pressed ? { color: theme.colors.border } : { color: theme.colors.text }}
+                  style={({ pressed }) => [
+                    {
+                      opacity: pressed ? 0.2 : 1,
+                      backgroundColor: theme.colors.background,
+                    },
+                    // styles.button,
+                  ]}
+                  // onPress={() => _handlePressButtonAsync(item.url)}
+                  onPress={handleUrlPress}
+                  // delayPressIn={200}
+                  // disabled={isSwipeActive}
+                  // activeOpacity={0.7}
+                >
+                  <View style={styles.textContent}>
+                      <Text
+                        style={[styles.title, { color: theme.colors.text }]}
+                        // style={[styles.title, ({ pressed }) => pressed ? { color: theme.colors.warning } : { color: theme.colors.warning }]}
+                        numberOfLines={3}
+                        ellipsizeMode="tail"
+                      >
+                        {item.title}
+                      </Text>
+                    <View style={styles.metadataRow}>
+                      <Text
+                        style={[styles.domain, { color: theme.colors.text }]}
+                      >
+                        {getDomainFromUrl(item.url)}
+                      </Text>
+                      <Text style={[styles.date, { color: theme.colors.text }]}>
+                        {/* {moment(item.date_added).format("MMMM D, YYYY")} */}
+                        {moment(item.date_added).format("YYYY-MM-DD")}
+                      </Text>
+                    </View>
                   </View>
-                </View>
+                </Pressable>
               </View>
             </Card>
           </Animated.View>
@@ -329,10 +334,16 @@ const styles = StyleSheet.create({
   cardContent: {
     flexDirection: "row",
     alignItems: "center",
+    width: "100%",
   },
   textContent: {
     flex: 1,
     paddingLeft: 10,
+    // padding: 0,
+    paddingRight: 10,
+    width: SCREEN_WIDTH - 120,
+    position: "relative",
+    minHeight: 80,
   },
   title: {
     fontSize: 15,
@@ -352,14 +363,18 @@ const styles = StyleSheet.create({
     marginBottom: 5,
   },
   metadataRow: {
+    position: 'absolute',
+    bottom: 8,
+    left: 10,
+    right: 10,
     flexDirection: "row",
     justifyContent: "space-between",
-    alignItems: "center",
-    marginTop: 5,
-    paddingBottom: 8,
+    width: '100%',
   },
   domain: {
     fontSize: 12,
+    flex: 1,
+    marginRight: 10,
   },
   date: {
     fontSize: 12,
@@ -367,7 +382,7 @@ const styles = StyleSheet.create({
   },
   rightActions: {
     flexDirection: "row",
-    width: SCREEN_WIDTH * 0.66,
+    width: SCREEN_WIDTH * 0.50,
     height: "100%",
   },
   leftActions: {
@@ -382,15 +397,6 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     alignItems: "center",
     width: SCREEN_WIDTH * 0.25,
-  },
-  editButton: {
-    backgroundColor: "#2196F3",
-  },
-  archiveButton: {
-    backgroundColor: "#4CAF50",
-  },
-  deleteButton: {
-    backgroundColor: "#FF0000",
   },
   actionText: {
     // color: "white",
