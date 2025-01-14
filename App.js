@@ -3,6 +3,7 @@ import {
   NavigationContainer,
   createNavigationContainerRef,
 } from "@react-navigation/native";
+import { ShareIntentProvider, useShareIntent } from "expo-share-intent";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import { useColorScheme, Platform, TouchableOpacity } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
@@ -42,8 +43,21 @@ const App = () => {
   const [isLoading, setIsLoading] = useState(true);
   const isLoggedIn = useAuthStore((state) => state.isLoggedIn);
 
-  useEffect(() => {
+  const { hasShareIntent, shareIntent, resetShareIntent, error } =
+    useShareIntent();
 
+  useEffect(() => {
+    if (hasShareIntent && isLoggedIn) {
+      setTimeout(() => {
+        if (navigationRef.isReady()) {
+          // console.log(shareIntent.text);
+          navigationRef.navigate("AddLinkScreen");
+        }
+      }, 100);
+    }
+  }, [hasShareIntent]);
+
+  useEffect(() => {
     const checkAuth = async () => {
       try {
         setIsLoading(false); // Set to false after checking auth
@@ -99,34 +113,35 @@ const App = () => {
 
   return (
     // <AuthProvider>
-    <ThemeProvider theme={theme}>
-      <SafeAreaProvider>
-        <NavigationContainer ref={navigationRef}>
-          <Stack.Navigator>
-            {/* {!isLoggedIn ? ( */}
-            {isLoading ? (
-              <Stack.Screen
-                name="Splash"
-                component={SplashScreen}
-                options={{ headerShown: false }}
-              />
-            ) : !isLoggedIn ? (
-              <>
+    <ShareIntentProvider>
+      <ThemeProvider theme={theme}>
+        <SafeAreaProvider>
+          <NavigationContainer ref={navigationRef}>
+            <Stack.Navigator>
+              {/* {!isLoggedIn ? ( */}
+              {isLoading ? (
                 <Stack.Screen
-                  name="Login"
-                  component={LoginScreen}
-                  options={{
-                    headerShown: false,
-                    gestureEnabled: false, // This disables the back gesture
-                    gestureDirection: "horizontal",
-                    presentation: "modal",
-                    animation: "flip",
-                  }}
+                  name="Splash"
+                  component={SplashScreen}
+                  options={{ headerShown: false }}
                 />
-              </>
-            ) : (
-              <>
-                {/* <Stack.Screen
+              ) : !isLoggedIn ? (
+                <>
+                  <Stack.Screen
+                    name="Login"
+                    component={LoginScreen}
+                    options={{
+                      headerShown: false,
+                      gestureEnabled: false, // This disables the back gesture
+                      gestureDirection: "horizontal",
+                      presentation: "modal",
+                      animation: "flip",
+                    }}
+                  />
+                </>
+              ) : (
+                <>
+                  {/* <Stack.Screen
                   name="HomeScreen"
                   component={HomeScreenList}
                   options={{
@@ -138,115 +153,116 @@ const App = () => {
                   }}
                 /> */}
 
-                <Stack.Screen
-                  name="HomeScreen"
-                  component={HomeScreenList}
-                  options={({ navigation }) => ({
-                    ...headerConfig,
-                    headerShown: true,
-                    title: "Bookmarks",
-                    // headerLargeTitle: true,
-                    headerLargeTitleStyle: {
-                      fontSize: 34,
-                      fontWeight: "bold",
-                      color: colors.text,
-                    },
-                    headerTitleStyle: {
-                      color: colors.text,
-                    },
-                    // headerTransparent: true,
-                    headerBlurEffect:
-                      Platform.OS === "ios" ? "regular" : undefined,
-                    headerRight: () => (
-                      <AddLinkButton navigation={navigation} />
-                    ),
-                    headerLeft: () => (
-                      <TouchableOpacity
-                        onPress={() => navigation.navigate("Settings")}
-                      >
-                        <Ionicons
-                          name="settings-outline"
-                          size={24}
-                          color={colors.text}
-                        />
-                      </TouchableOpacity>
-                    ),
-                  })}
-                />
+                  <Stack.Screen
+                    name="HomeScreen"
+                    component={HomeScreenList}
+                    options={({ navigation }) => ({
+                      ...headerConfig,
+                      headerShown: true,
+                      title: "Bookmarks",
+                      // headerLargeTitle: true,
+                      headerLargeTitleStyle: {
+                        fontSize: 34,
+                        fontWeight: "bold",
+                        color: colors.text,
+                      },
+                      headerTitleStyle: {
+                        color: colors.text,
+                      },
+                      // headerTransparent: true,
+                      headerBlurEffect:
+                        Platform.OS === "ios" ? "regular" : undefined,
+                      headerRight: () => (
+                        <AddLinkButton navigation={navigation} />
+                      ),
+                      headerLeft: () => (
+                        <TouchableOpacity
+                          onPress={() => navigation.navigate("Settings")}
+                        >
+                          <Ionicons
+                            name="settings-outline"
+                            size={24}
+                            color={colors.text}
+                          />
+                        </TouchableOpacity>
+                      ),
+                    })}
+                  />
 
-                <Stack.Screen
-                  name="Links"
-                  component={UnifiedLinksScreen}
-                  initialParams={{ path: "all" }} // or 'archive' or 'bytag'
-                  options={({ route }) => ({
-                    title: route.params?.title || "Your Links",
-                    ...unifiedScreenOptions,
-                  })}
-                />
-                <Stack.Screen
-                  name="TagScreen"
-                  component={TagScreen}
-                  options={{
-                    ...unifiedScreenOptions,
-                    title: "Tags",
-                  }}
-                />
-                <Stack.Screen
-                  name="LinksByTagScreen"
-                  component={UnifiedLinksScreen}
-                  initialParams={{ path: "bytag" }}
-                  options={({ route }) => ({
-                    title: route.params?.title || "Tags",
-                    ...headerConfig,
-                    headerTitleAlign: "center",
-                    headerLargeTitle: true,
-                    gestureEnabled: true,
-                    gestureDirection: "horizontal",
-                  })}
-                />
-                <Stack.Screen
-                  name="AddLinkScreen"
-                  component={AddLinkScreen}
-                  options={{
-                    title: "Add New Link",
-                    ...headerConfig,
-                    gestureEnabled: true,
-                    presentation: "modal",
-                    // animation: "simple_push",
-                  }}
-                  // options={({ navigation }) => ({
-                  //   title: "Add New Link",
-                  //   ...headerConfig,
-                  //   gestureEnabled: true,
-                  //   presentation: "modal",
-                  //   ...screenOptions(navigation, theme, isSubmitting, handleSubmit)
-                  // })}
-                />
-                <Stack.Screen
-                  name="BookmarkScreen"
-                  component={BookmarkScreen}
-                  options={{
-                    title: "Edit Link",
-                    ...headerConfig,
-                    gestureEnabled: true,
-                    presentation: "modal",
-                  }}
-                />
-                <Stack.Screen
-                  name="Settings"
-                  component={SettingsScreen}
-                  options={{
-                    headerShown: true,
-                    gestureEnabled: true,
-                    ...headerConfig,
-                  }}
-                />
-              </>
-            )}
-          </Stack.Navigator>
-        </NavigationContainer>
-      </SafeAreaProvider>
-    </ThemeProvider>
+                  <Stack.Screen
+                    name="Links"
+                    component={UnifiedLinksScreen}
+                    initialParams={{ path: "all" }} // or 'archive' or 'bytag'
+                    options={({ route }) => ({
+                      title: route.params?.title || "Your Links",
+                      ...unifiedScreenOptions,
+                    })}
+                  />
+                  <Stack.Screen
+                    name="TagScreen"
+                    component={TagScreen}
+                    options={{
+                      ...unifiedScreenOptions,
+                      title: "Tags",
+                    }}
+                  />
+                  <Stack.Screen
+                    name="LinksByTagScreen"
+                    component={UnifiedLinksScreen}
+                    initialParams={{ path: "bytag" }}
+                    options={({ route }) => ({
+                      title: route.params?.title || "Tags",
+                      ...headerConfig,
+                      headerTitleAlign: "center",
+                      headerLargeTitle: true,
+                      gestureEnabled: true,
+                      gestureDirection: "horizontal",
+                    })}
+                  />
+                  <Stack.Screen
+                    name="AddLinkScreen"
+                    component={AddLinkScreen}
+                    options={{
+                      title: "Add New Link",
+                      ...headerConfig,
+                      gestureEnabled: true,
+                      presentation: "modal",
+                      // animation: "simple_push",
+                    }}
+                    // options={({ navigation }) => ({
+                    //   title: "Add New Link",
+                    //   ...headerConfig,
+                    //   gestureEnabled: true,
+                    //   presentation: "modal",
+                    //   ...screenOptions(navigation, theme, isSubmitting, handleSubmit)
+                    // })}
+                  />
+                  <Stack.Screen
+                    name="BookmarkScreen"
+                    component={BookmarkScreen}
+                    options={{
+                      title: "Edit Link",
+                      ...headerConfig,
+                      gestureEnabled: true,
+                      presentation: "modal",
+                    }}
+                  />
+                  <Stack.Screen
+                    name="Settings"
+                    component={SettingsScreen}
+                    options={{
+                      headerShown: true,
+                      gestureEnabled: true,
+                      ...headerConfig,
+                    }}
+                  />
+                </>
+              )}
+            </Stack.Navigator>
+          </NavigationContainer>
+        </SafeAreaProvider>
+      </ThemeProvider>
+    </ShareIntentProvider>
     // </AuthProvider>
   );
 };

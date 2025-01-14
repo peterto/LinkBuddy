@@ -29,6 +29,7 @@ const getAppName = () => {
 export default {
     // "name": IS_DEV ? "LinkBuddy (Dev)" : "LinkBuddy",
     "name": getAppName(),
+    "scheme": "LinkBuddy",
     "slug": "LinkBuddy",
     "version": "1.0.0",
     "orientation": "portrait",
@@ -76,6 +77,9 @@ export default {
           "imageWidth": 200
         }
       ],
+      [
+        "expo-share-intent"
+      ]
     ],
     "extra": {
       "eas": {

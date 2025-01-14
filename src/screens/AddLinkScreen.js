@@ -20,6 +20,7 @@ import * as Clipboard from "expo-clipboard";
 import LinkdingApi from "../services/LinkdingApi";
 import { useTheme } from "@rneui/themed";
 import TagInput from "../components/TagInput";
+import { useShareIntentContext } from "expo-share-intent";
 // import { Pressable } from "react-native-gesture-handler";
 
 const AddLinkScreen = ({ navigation }) => {
@@ -38,14 +39,34 @@ const AddLinkScreen = ({ navigation }) => {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [modalVisible, setModalVisible] = useState(false);
 
+  const { hasShareIntent, shareIntent, resetShareIntent } =
+    useShareIntentContext();
+
+
+  // const checkAndPasteClipboardUrl = async () => {
+  //   const hasUrl = await Clipboard.hasUrlAsync();
+  //   if (hasUrl) {
+  //     const clipboardText = await Clipboard.getStringAsync();
+  //     setUrl(clipboardText);
+  //     checkExistingUrl(clipboardText);
+  //   }
+  // };
+
   const checkAndPasteClipboardUrl = async () => {
+    if (hasShareIntent && shareIntent.text) {
+      setUrl(shareIntent.text);
+      checkExistingUrl(shareIntent.text);
+      resetShareIntent();
+      return;
+    }
+
     const hasUrl = await Clipboard.hasUrlAsync();
     if (hasUrl) {
       const clipboardText = await Clipboard.getStringAsync();
       setUrl(clipboardText);
       checkExistingUrl(clipboardText);
     }
-  };
+  }
 
   // const fetchCopiedText = async () => {
   //   const text = await Clipboard.getString();
@@ -169,7 +190,8 @@ const AddLinkScreen = ({ navigation }) => {
         setModalVisible(true);
         setTimeout(() => {
           setModalVisible(false);
-          navigation.goBack();
+          // navigation.goBack();
+          navigation.popToTop();
           // navigation.goBack({ refresh: onRefresh });
         }, 1500);
       }
