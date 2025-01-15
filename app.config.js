@@ -4,32 +4,44 @@ const IS_PRODUCTION = process.env.APP_VARIANT === 'production';
 
 const getUniqueIdentifier = () => {
   if (IS_DEV) {
-    return 'com.peterto.LinkBuddy.dev';
+    return "com.peterto.LinkBuddy.dev";
   }
 
   if (IS_PREVIEW) {
-    return 'com.peterto.LinkBuddy.preview';
+    return "com.peterto.LinkBuddy.preview";
   }
 
-  return 'com.peterto.LinkBuddy';
+  return "com.peterto.LinkBuddy";
 };
 
 const getAppName = () => {
   if (IS_DEV) {
-    return 'LinkBuddy (Dev)';
+    return "LinkBuddy (Dev)";
   }
 
   if (IS_PREVIEW) {
-    return 'LinkBuddy (Preview)';
+    return "LinkBuddy (Preview)";
   }
 
-  return 'LinkBuddy: For Linkding';
+  return "LinkBuddy: For Linkding";
 };
+
+const getSchemeName = () => {
+  if (IS_DEV) {
+    return "linkbuddydev";
+  }
+
+  if (IS_PREVIEW) {
+    return "linkbuddypreview"
+  }
+
+  return "linkbuddy"
+}
 
 export default {
     // "name": IS_DEV ? "LinkBuddy (Dev)" : "LinkBuddy",
     "name": getAppName(),
-    "scheme": "LinkBuddy",
+    "scheme": getSchemeName(),
     "slug": "LinkBuddy",
     "version": "1.0.0",
     "orientation": "portrait",
