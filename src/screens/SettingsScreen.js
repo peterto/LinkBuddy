@@ -12,6 +12,7 @@ import { useTheme } from "@rneui/themed";
 import useAuthStore from "../store/useAuthStore";
 import * as Linking from "expo-linking";
 import * as WebBrowser from "expo-web-browser";
+// import * as DeviceInfo from "react-native-device-info";
 
 const SettingsScreen = ({ navigation }) => {
   const logout = useAuthStore((state) => state.logout);
@@ -141,6 +142,8 @@ const SettingsScreen = ({ navigation }) => {
   };
 
   const handleEmailPress = () => {
+    
+    // let deviceId = DeviceInfo.getDeviceId();
     const email = "mailto:linkbuddyapp@gmail.com";
     const subject = "LinkBuddy [Support Request]";
     const body = `App Version: ${appVersion}`;
@@ -266,7 +269,7 @@ const SettingsScreen = ({ navigation }) => {
       >
         <View style={styles.section}>
           <Text style={[styles.label, { color: theme.colors.primary }]}>
-            Contact Me for any questions or support
+            Send Feedback
           </Text>
           <Text style={[styles.value, { color: theme.colors.text }]} selectable>
             linkbuddyapp@gmail.com
