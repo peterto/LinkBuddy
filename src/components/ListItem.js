@@ -24,7 +24,9 @@ import Animated, {
   ReanimatedLogLevel,
 } from "react-native-reanimated";
 import { useTheme, Card } from "@rneui/themed";
-
+import { Ionicons } from "@expo/vector-icons";
+import Feather from '@expo/vector-icons/Feather';
+import MaterialIcons from '@expo/vector-icons/MaterialIcons';
 import LinkdingApi from "../services/LinkdingApi";
 
 configureReanimatedLogger({
@@ -169,9 +171,15 @@ const ListItem = ({
           // }
           onPress={handleEdit}
         >
-          <Text style={[styles.actionText, { color: theme.colors.text, backgroundColor: theme.colors.edit }]}>
+          <Feather name="edit" size={24} color={theme.colors.text} />
+          {/* <Text
+            style={[
+              styles.actionText,
+              { color: theme.colors.text, backgroundColor: theme.colors.edit },
+            ]}
+          >
             Edit
-          </Text>
+          </Text> */}
         </TouchableOpacity>
         {/* <TouchableOpacity
           style={[styles.actionButton, styles.archiveButton]}
@@ -180,22 +188,47 @@ const ListItem = ({
           <Text style={[styles.actionText, {color: theme.colors.text}]}>Archive</Text>
         </TouchableOpacity> */}
         <TouchableOpacity
-          style={[styles.actionButton, { backgroundColor: theme.colors.archive }]}
+          style={[
+            styles.actionButton,
+            { backgroundColor: theme.colors.archive },
+          ]}
           // onPress={item.is_archived ? handleUnarchive : handleArchive}
           onPress={isArchiveScreen ? handleUnarchive : handleArchive}
         >
-          <Text style={[styles.actionText, { color: theme.colors.text, backgroundColor: theme.colors.archive }]}>
+          <MaterialIcons name={isArchiveScreen ? "unarchive" : "archive"} size={24} color={theme.colors.text} />
+          {/* <Text
+            style={[
+              styles.actionText,
+              {
+                color: theme.colors.text,
+                backgroundColor: theme.colors.archive,
+                fontSize: isArchiveScreen ? 13 : 17,
+              },
+            ]}
+          > */}
             {/* {item.is_archived ? "Unarchive" : "Archive"} */}
-            {isArchiveScreen ? "Unarchive" : "Archive"}
-          </Text>
+            {/* {isArchiveScreen ? "Unarchive" : "Archive"} */}
+          {/* </Text> */}
         </TouchableOpacity>
         <TouchableOpacity
-          style={[styles.actionButton, { backgroundColor: theme.colors.delete }]}
+          style={[
+            styles.actionButton,
+            { backgroundColor: theme.colors.delete },
+          ]}
           onPress={handleDelete}
         >
-          <Text style={[styles.actionText, { color: theme.colors.text, backgroundColor: theme.colors.delete }]}>
+          <MaterialIcons name="delete" size={30} color={theme.colors.text} />
+          {/* <Text
+            style={[
+              styles.actionText,
+              {
+                color: theme.colors.text,
+                backgroundColor: theme.colors.delete,
+              },
+            ]}
+          >
             Delete
-          </Text>
+          </Text> */}
         </TouchableOpacity>
       </View>
     );
@@ -292,14 +325,14 @@ const ListItem = ({
                   // activeOpacity={0.7}
                 >
                   <View style={styles.textContent}>
-                      <Text
-                        style={[styles.title, { color: theme.colors.text }]}
-                        // style={[styles.title, ({ pressed }) => pressed ? { color: theme.colors.warning } : { color: theme.colors.warning }]}
-                        numberOfLines={3}
-                        ellipsizeMode="tail"
-                      >
-                        {item.title}
-                      </Text>
+                    <Text
+                      style={[styles.title, { color: theme.colors.text }]}
+                      // style={[styles.title, ({ pressed }) => pressed ? { color: theme.colors.warning } : { color: theme.colors.warning }]}
+                      numberOfLines={3}
+                      ellipsizeMode="tail"
+                    >
+                      {item.title}
+                    </Text>
                     <View style={styles.metadataRow}>
                       <Text
                         style={[styles.domain, { color: theme.colors.text }]}
@@ -363,13 +396,13 @@ const styles = StyleSheet.create({
     marginBottom: 5,
   },
   metadataRow: {
-    position: 'absolute',
+    position: "absolute",
     bottom: 8,
     left: 10,
     right: 10,
     flexDirection: "row",
     justifyContent: "space-between",
-    width: '100%',
+    width: "100%",
   },
   domain: {
     fontSize: 12,
@@ -382,7 +415,7 @@ const styles = StyleSheet.create({
   },
   rightActions: {
     flexDirection: "row",
-    width: SCREEN_WIDTH * 0.50,
+    width: SCREEN_WIDTH * 0.5,
     height: "100%",
   },
   leftActions: {
