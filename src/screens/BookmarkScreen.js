@@ -63,6 +63,7 @@ const BookmarkScreen = ({ route }) => {
         }
       } catch (error) {
         Alert.alert("Error", error.message);
+        navigation.goBack();
       } finally {
         setIsLoading(false);
       }
@@ -264,6 +265,7 @@ const BookmarkScreen = ({ route }) => {
           placeholder="URL"
           placeholderTextColor={theme.colors.placeholderTextColor}
           autoCapitalize="none"
+          color={theme.colors.text}
           autoCorrect={false}
           keyboardType="url"
         />
@@ -276,11 +278,12 @@ const BookmarkScreen = ({ route }) => {
           onChangeText={(text) => setFormData({ ...formData, title: text })}
           placeholder="Title"
           placeholderTextColor={theme.colors.placeholderTextColor}
+          color={theme.colors.text}
         />
         <TextInput
           style={[
             styles.input,
-            { height: 80 },
+            { height: 100 },
             { borderColor: theme.colors.text, color: theme.colors.text },
           ]}
           value={formData.description}
@@ -291,6 +294,7 @@ const BookmarkScreen = ({ route }) => {
           placeholderTextColor={theme.colors.placeholderTextColor}
           multiline
           numberOfLines={4}
+          color={theme.colors.text}
         />
 
         <TextInput
@@ -300,15 +304,15 @@ const BookmarkScreen = ({ route }) => {
           ]}
           value={formData.tags}
           onChangeText={(text) => setFormData({ ...formData, tags: text })}
-          placeholder="Tags (comma separated)"
+          placeholder="tag1, tag2, tag3,..."
           placeholderTextColor={theme.colors.placeholderTextColor}
+          color={theme.colors.text}
           autoCapitalize="none"
-          autoCorrect={false}
         />
         <TextInput
           style={[
             styles.input,
-            { height: 100 },
+            { height: 150 },
             { borderColor: theme.colors.text, color: theme.colors.text },
           ]}
           value={formData.notes}
@@ -317,6 +321,7 @@ const BookmarkScreen = ({ route }) => {
           placeholderTextColor={theme.colors.placeholderTextColor}
           multiline
           numberOfLines={4}
+          color={theme.colors.text}
         />
 
         <View
@@ -427,11 +432,9 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     padding: 16,
-    // backgroundColor: "#fff",
   },
   input: {
     borderWidth: 1,
-    // borderColor: "#ddd",
     borderRadius: 10,
     padding: 8,
     marginBottom: 16,
@@ -443,12 +446,9 @@ const styles = StyleSheet.create({
     justifyContent: "center",
   },
   inputTitleText: {
-    // borderWidth: 1,
     borderColor: "#ddd",
-    // borderRadius: 4,
     padding: 3,
     marginBottom: 1,
-    // minHeight: 40,
   },
   toggleContainer: {
     flexDirection: "row",
@@ -461,17 +461,15 @@ const styles = StyleSheet.create({
     marginBottom: 32,
   },
   button: {
-    // marginVertical: 4,
     borderRadius: 10,
   },
   deleteButton: {
     borderRadius: 10,
     margin: 16,
-    marginBottom: Platform.OS === "ios" ? 40 : 16, // Extra padding for iOS
+    marginBottom: Platform.OS === "ios" ? 40 : 16, 
   },
   headerButtonText: {
     fontSize: 20,
-    // fontWeight: "bold",
     textDecorationLine: "underline",
   },
   centeredView: {
