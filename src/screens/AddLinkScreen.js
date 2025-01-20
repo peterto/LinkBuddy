@@ -42,7 +42,6 @@ const AddLinkScreen = ({ navigation }) => {
   const { hasShareIntent, shareIntent, resetShareIntent } =
     useShareIntentContext();
 
-
   // const checkAndPasteClipboardUrl = async () => {
   //   const hasUrl = await Clipboard.hasUrlAsync();
   //   if (hasUrl) {
@@ -66,7 +65,7 @@ const AddLinkScreen = ({ navigation }) => {
       setUrl(clipboardText);
       checkExistingUrl(clipboardText);
     }
-  }
+  };
 
   // const fetchCopiedText = async () => {
   //   const text = await Clipboard.getString();
@@ -170,7 +169,12 @@ const AddLinkScreen = ({ navigation }) => {
         url: formattedUrl,
         title: title,
         description: description,
-        tag_names: tags ? tags.split(",").map((tag) => tag.trim()) : [],
+        tag_names: tags
+          ? tags
+              .split(",")
+              .map((tag) => tag.trim())
+              .filter((tag) => tag.length > 0)
+          : [],
         notes: notes,
         is_archived: false,
         unread: true,
