@@ -190,6 +190,7 @@ const AddLinkScreen = ({ navigation }) => {
         setModalVisible(true);
         setTimeout(() => {
           setModalVisible(false);
+          Clipboard.setStringAsync("");
           // navigation.goBack();
           navigation.popToTop();
           // navigation.goBack({ refresh: onRefresh });
