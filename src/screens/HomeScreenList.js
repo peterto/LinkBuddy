@@ -21,18 +21,12 @@ const HomeScreenList = ({ navigation }) => {
   const quickActionMenuItems = [
     {
       id: "1",
-      // title: 'All Links',
-      // icon: 'link',
-      // route: 'AllLinksScreen'
       title: "Your Links",
       icon: "link",
       route: "Links",
     },
     {
       id: "2",
-      // title: "Add Link",
-      // icon: "add-circle",
-      // route: "AddLinkScreen",
       title: "Archive",
       icon: "archive",
       route: "Links",
@@ -85,7 +79,6 @@ const HomeScreenList = ({ navigation }) => {
   const renderItem = ({ item }) => (
     <TouchableOpacity
       style={[styles.listItem, { backgroundColor: theme.colors.primary }]}
-      // onPress={() => navigation.navigate(item.route)}
       onPress={() =>
         navigation.navigate(item.route, {
           path: item.path || "default",
@@ -112,17 +105,6 @@ const HomeScreenList = ({ navigation }) => {
       <View
         style={[styles.container, { backgroundColor: theme.colors.background }]}
       >
-        {/* <TouchableOpacity
-          style={styles.settingsButton}
-          onPress={() => navigation.navigate("Settings")}
-        >
-          <Ionicons
-            name="settings-outline"
-            size={24}
-            color={theme.colors.text}
-          />
-        </TouchableOpacity> */}
-
         {/* <AddLinkButton navigation={navigation} /> */}
 
         <ScrollView>
@@ -133,7 +115,6 @@ const HomeScreenList = ({ navigation }) => {
             ]}
           >
             <Text style={[styles.sectionTitle, { color: theme.colors.text }]}>
-              {/* <Text> */}
               Quick Access
             </Text>
             <View
@@ -167,7 +148,6 @@ const HomeScreenList = ({ navigation }) => {
             ]}
           >
             <Text style={[styles.sectionTitle, { color: theme.colors.text }]}>
-              {/* <Text> */}
               Link Collections
             </Text>
             <View
@@ -209,36 +189,12 @@ const styles = StyleSheet.create({
     paddingRight: 16,
     paddingLeft: 16,
     paddingBottom: 16,
-    // paddingTop: 16,
   },
-  settingsButton: {
-    position: "absolute",
-    top: 16,
-    left: 16,
-    zIndex: 1,
-    padding: 8,
-  },
-  // addButton: {
-  //   position: "absolute",
-  //   top: 16,
-  //   right: 16,
-  //   zIndex: 1,
-  //   padding: 8,
-  // },
   listItem: {
     flexDirection: "row",
     alignItems: "center",
     padding: 16,
     borderRadius: 12,
-    // marginBottom: 12,
-    // elevation: 3,
-    // shadowColor: "#000",
-    // shadowOffset: {
-    //   width: 0,
-    //   height: 2,
-    // },
-    // shadowOpacity: 0.25,
-    // shadowRadius: 3.84,
   },
   buttonText: {
     fontSize: 16,
@@ -246,16 +202,11 @@ const styles = StyleSheet.create({
     marginLeft: 16,
   },
   sectionOneContainer: {
-    // flex: 1,
     borderRadius: 12,
-    // marginTop: 60,
-    // paddingTop: 16,
   },
   sectionContainer: {
-    // flex: 1,
     borderRadius: 12,
     marginTop: 60,
-    // padding: 16,
   },
   sectionTitle: {
     fontSize: 24,
@@ -264,15 +215,11 @@ const styles = StyleSheet.create({
     marginTop: 16,
   },
   listContainer: {
-    // paddingTop: 8,
-    // flex: 1,
     borderRadius: 12,
     height: "auto",
   },
   listDivider: {
     width: "90%",
-    // marginLeft: 10,
-    // marginRight: 10,
     alignSelf: "center",
   },
 });
