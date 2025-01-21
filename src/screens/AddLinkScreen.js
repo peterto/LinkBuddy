@@ -211,6 +211,22 @@ const AddLinkScreen = ({ navigation }) => {
     checkAndPasteClipboardUrl();
   }, []);
 
+  useEffect(() => {
+    if (hasShareIntent && shareIntent.text) {
+      setModalVisible(false);
+      setIsSaved(false);
+      setUrl(shareIntent.text);
+      checkExistingUrl(shareIntent.text);
+      resetShareIntent();
+    }
+  }, [hasShareIntent, shareIntent]);
+  
+  useEffect(() => {
+    return () => {
+      setModalVisible(false);
+    };
+  }, []);  
+
   useLayoutEffect(() => {
     navigation.setOptions({
       headerLeft: () => (
