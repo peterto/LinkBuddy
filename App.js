@@ -141,18 +141,6 @@ const App = () => {
                 </>
               ) : (
                 <>
-                  {/* <Stack.Screen
-                  name="HomeScreen"
-                  component={HomeScreenList}
-                  options={{
-                    title: "Your Links",
-                    headerShown: false,
-                    title: "",
-                    gestureEnabled: false,
-                    headerLargeTitle: true,
-                  }}
-                /> */}
-
                   <Stack.Screen
                     name="HomeScreen"
                     component={HomeScreenList}
@@ -229,13 +217,6 @@ const App = () => {
                       presentation: "modal",
                       // animation: "simple_push",
                     }}
-                    // options={({ navigation }) => ({
-                    //   title: "Add New Link",
-                    //   ...headerConfig,
-                    //   gestureEnabled: true,
-                    //   presentation: "modal",
-                    //   ...screenOptions(navigation, theme, isSubmitting, handleSubmit)
-                    // })}
                   />
                   <Stack.Screen
                     name="BookmarkScreen"
