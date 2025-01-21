@@ -25,7 +25,7 @@ const LoginScreen = ({ navigation }) => {
 
   const login = useAuthStore((state) => state.login);
   const handleLogin = async () => {
-    // First clear existing data
+    // Clear existing data
     const keysToDelete = [
       "jwtToken",
       "baseURL",
@@ -113,7 +113,6 @@ const LoginScreen = ({ navigation }) => {
           }}
           buttonStyle={{
             backgroundColor: theme.colors.primary,
-            // padding: 15,
             borderWidth: 0,
           }}
           titleStyle={{
@@ -144,7 +143,6 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: "#f5f5f5",
-    // backgroundColor: theme.colors.primary,
   },
   loginContainer: {
     flex: 1,
@@ -170,7 +168,6 @@ const styles = StyleSheet.create({
     color: "#000",
   },
   loginButton: {
-    // backgroundColor: "#007AFF",
     backgroundColor: "white",
     padding: 15,
     borderRadius: 10,
@@ -178,7 +175,6 @@ const styles = StyleSheet.create({
     marginTop: 10,
   },
   loginButtonText: {
-    // color: "#fff",
     color: "white",
     fontSize: 16,
     fontWeight: "bold",
