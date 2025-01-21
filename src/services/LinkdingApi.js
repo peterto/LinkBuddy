@@ -15,34 +15,6 @@ class LinkdingAPI {
     // console.log("in updateBaseUrl this.BASE_URL", this.BASE_URL);
   }
 
-  // async handleLogin(serverURL, authToken) {
-  //   try {
-  //     console.log("Attempting login with:", serverURL);
-  //     const response = await fetch(`${serverURL}/api/bookmarks/?limit=1`, {
-  //       headers: {
-  //         Authorization: `Token ${authToken}`,
-  //         "Content-Type": "application/json",
-  //       },
-  //     });
-  //     console.log("Login response status:", response.status);
-
-  //     if (response.status === 200) {
-  //       await SecureStore.setItemAsync("jwtToken", `Token ${authToken}`);
-  //       await SecureStore.setItemAsync("baseURL", serverURL);
-  //       // await SecureStore.setItemAsync("isLoggedIn", "true");
-  //       this.BASE_URL = serverURL;
-
-  //       await BookmarkCache.prefetchAll();
-
-  //       return true;
-  //     }
-  //     return false;
-  //   } catch (error) {
-  //     console.log("Login error:", error);
-  //     return false;
-  //   }
-  // }
-
   async handleLogin(serverURL, authToken) {
     try {
       // console.log("serverURL:", serverURL);
@@ -203,16 +175,6 @@ class LinkdingAPI {
     });
     return response;
   }
-
-  // async updateBookmark(bookmarkId, bookmarkData) {
-  //   const headers = await this.getHeaders();
-  //   const response = await fetch(`${this.BASE_URL}/api/bookmarks/${bookmarkId}/`, {
-  //     method: "PUT",
-  //     headers,
-  //     body: JSON.stringify(bookmarkData),
-  //   });
-  //   return response.json();
-  // }
 
   async updateBookmark(bookmarkId, bookmarkData) {
     const headers = await this.getHeaders();
