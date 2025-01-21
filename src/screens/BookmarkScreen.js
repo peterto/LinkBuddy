@@ -14,7 +14,6 @@ import {
   Pressable,
   Modal,
 } from "react-native";
-// import { Chip } from "react-native-paper";
 import { useNavigation } from "@react-navigation/native";
 import LinkdingApi from "../services/LinkdingApi";
 import { useTheme, Button, Chip } from "@rneui/themed";
@@ -75,23 +74,6 @@ const BookmarkScreen = ({ route }) => {
   const updateBookmark = async () => {
     setIsLoading(true);
 
-    // try {
-    //   console.log(formData.tags);
-    //   const response = await fetch(`${baseURL}/api/bookmarks/${bookmarkID}/`, {
-    //     method: "PATCH",
-    //     headers: {
-    //       "Content-Type": "application/json",
-    //       Authorization: jwtToken,
-    //     },
-    //     body: JSON.stringify({
-    //       ...formData,
-    //       tag_names: formData.tags
-    //         .split(",")
-    //         .map((tag) => tag.trim())
-    //         .filter((tag) => tag),
-    //     }),
-    //   });
-
     const bookmarkData = {
       ...formData,
       tag_names: formData.tags
@@ -100,43 +82,11 @@ const BookmarkScreen = ({ route }) => {
         .filter((tag) => tag),
     };
 
-    // const bookmarkData = {
-    //   url: formData.url,
-    //   title: formData.title,
-    //   description: formData.description,
-    //   notes: formData.notes,
-    //   tag_names: formData.tags
-    //     .split(",")
-    //     .map((tag) => tag.trim())
-    //     .filter((tag) => tag),
-    //   is_archived: formData.is_archived,
-    //   unread: formData.unread,
-    //   shared: formData.shared,
-    // };
-
     try {
       const response = await LinkdingApi.updateBookmark(
         bookmarkID,
         bookmarkData
       );
-
-      // const updatedData = {
-      //   ...formData,
-      //   tag_names: formData.tags
-      //     .split(",")
-      //     .map((tag) => tag.trim())
-      //     .filter((tag) => tag),
-      // };
-
-      // const response = await LinkdingApi.updateBookmark(
-      //   bookmarkID,
-      //   updatedData
-      // );
-      // if (route.params?.onUpdate) {
-      //   route.params.onUpdate();
-      // }
-
-      // console.log(bookmarkData);
 
       if (response) {
         setModalVisible(true);
@@ -187,38 +137,16 @@ const BookmarkScreen = ({ route }) => {
   useLayoutEffect(() => {
     navigation.setOptions({
       headerLeft: () => (
-        // <Button
-        //   type="clear"
-        //   onPress={() => navigation.goBack()}
-        //   title="Cancel"
-        //   disabled={isLoading}
-        //   titleStyle={{ color: theme.colors.text }}
-        // />
         <Pressable
           onPress={() => navigation.goBack()}
           style={{ marginLeft: 15 }}
         >
-          {/* <Ionicons
-            name="close-outline"
-            size={24}
-            color={theme.colors.primary}
-          /> */}
           <Text style={[styles.headerButtonText, { color: theme.colors.text }]}>
             Close
           </Text>
         </Pressable>
       ),
       headerRight: () => (
-        // <Button
-        //   type="clear"
-        //   onPress={updateBookmark}
-        //   title="Update"
-        //   disabled={isLoading}
-        //   // type="outline"
-        //   titleStyle={{ color: theme.colors.text }}
-        //   // color={ theme.colors.text }
-        //   // style={[{ color: theme.colors.text }]}
-        // />
         <Pressable
           onPress={updateBookmark}
           disabled={isLoading}
@@ -249,12 +177,6 @@ const BookmarkScreen = ({ route }) => {
       <ScrollView
         style={[styles.container, { backgroundColor: theme.colors.background }]}
       >
-        {/* <KeyboardAvoidingView
-        behavior={Platform.OS === "ios" ? "padding" : "height"}
-      > */}
-        {/* <Text style={[styles.inputTitleText, { color: theme.colors.text }]}>
-          URL
-        </Text> */}
         <TextInput
           style={[
             styles.input,
@@ -368,21 +290,6 @@ const BookmarkScreen = ({ route }) => {
         </View>
 
         <View style={styles.buttonContainer}>
-          {/* <Button
-            mode="contained"
-            onPress={updateBookmark}
-            disabled={isLoading}
-            buttonStyle={[
-              styles.button,
-              {
-                backgroundColor: theme.colors.save,
-                color: theme.colors.buttonText,
-              },
-            ]}
-
-          >
-            {isLoading ? <ActivityIndicator color="white" /> : "Update"}
-          </Button> */}
           <Button
             mode="contained"
             onPress={deleteBookmark}
@@ -445,11 +352,6 @@ const styles = StyleSheet.create({
     flexDirection: "column",
     justifyContent: "center",
   },
-  inputTitleText: {
-    borderColor: "#ddd",
-    padding: 3,
-    marginBottom: 1,
-  },
   toggleContainer: {
     flexDirection: "row",
     flexWrap: "wrap",
@@ -466,7 +368,7 @@ const styles = StyleSheet.create({
   deleteButton: {
     borderRadius: 10,
     margin: 16,
-    marginBottom: Platform.OS === "ios" ? 40 : 16, 
+    marginBottom: Platform.OS === "ios" ? 40 : 16,
   },
   headerButtonText: {
     fontSize: 20,

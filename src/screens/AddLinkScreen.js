@@ -11,7 +11,6 @@ import {
   TouchableWithoutFeedback,
   Keyboard,
   Modal,
-  useColorScheme,
   StatusBar,
   Pressable,
 } from "react-native";
@@ -19,13 +18,10 @@ import { Ionicons } from "@expo/vector-icons";
 import * as Clipboard from "expo-clipboard";
 import LinkdingApi from "../services/LinkdingApi";
 import { useTheme } from "@rneui/themed";
-import TagInput from "../components/TagInput";
 import { useShareIntentContext } from "expo-share-intent";
-// import { Pressable } from "react-native-gesture-handler";
 
 const AddLinkScreen = ({ navigation }) => {
   const { theme } = useTheme();
-  const colorScheme = useColorScheme();
   const isDarkMode = true;
 
   const [url, setUrl] = useState("");
@@ -42,15 +38,6 @@ const AddLinkScreen = ({ navigation }) => {
   const { hasShareIntent, shareIntent, resetShareIntent } =
     useShareIntentContext();
 
-  // const checkAndPasteClipboardUrl = async () => {
-  //   const hasUrl = await Clipboard.hasUrlAsync();
-  //   if (hasUrl) {
-  //     const clipboardText = await Clipboard.getStringAsync();
-  //     setUrl(clipboardText);
-  //     checkExistingUrl(clipboardText);
-  //   }
-  // };
-
   const checkAndPasteClipboardUrl = async () => {
     if (hasShareIntent && shareIntent.text) {
       setUrl(shareIntent.text);
@@ -66,11 +53,6 @@ const AddLinkScreen = ({ navigation }) => {
       checkExistingUrl(clipboardText);
     }
   };
-
-  // const fetchCopiedText = async () => {
-  //   const text = await Clipboard.getString();
-  //   setCopiedText(text);
-  // };
 
   const fetchCopiedText = async () => {
     const text = await Clipboard.getStringAsync();
@@ -94,11 +76,7 @@ const AddLinkScreen = ({ navigation }) => {
       const checkResponse = await LinkdingApi.checkWebsiteMetadata(urlToCheck);
 
       const checkData = await checkResponse;
-      // console.log(checkData);
-      // const clipboardData = await fetchCopiedText();
-      // console.log(clipboardData);
 
-      //   if (checkData.results && checkData.results.length > 0) {
       if (checkData.bookmark) {
         // console.log(checkData.bookmark);
         setIsExisting(true);
@@ -154,14 +132,11 @@ const AddLinkScreen = ({ navigation }) => {
       // console.log("Notes:", notes);
 
       // console.log("Original URL:", url);
-      // const formattedUrl = checkURLFormatting(url);
       // console.log("Formatted URL:", formattedUrl);
 
       const urlString = typeof url === "object" ? url._j : url;
-      // console.log("Original URL:", urlString);
 
       const formattedUrl = checkURLFormatting(urlString);
-      // console.log("Formatted URL:", formattedUrl);
 
       if (!formattedUrl) return;
 
@@ -189,15 +164,12 @@ const AddLinkScreen = ({ navigation }) => {
       }
 
       if (response.ok) {
-        // console.log("Response ok, showing modal");
         setIsSaved(true);
         setModalVisible(true);
         setTimeout(() => {
           setModalVisible(false);
           Clipboard.setStringAsync("");
-          // navigation.goBack();
           navigation.popToTop();
-          // navigation.goBack({ refresh: onRefresh });
         }, 1500);
       }
     } catch (error) {
@@ -220,12 +192,12 @@ const AddLinkScreen = ({ navigation }) => {
       resetShareIntent();
     }
   }, [hasShareIntent, shareIntent]);
-  
+
   useEffect(() => {
     return () => {
       setModalVisible(false);
     };
-  }, []);  
+  }, []);
 
   useLayoutEffect(() => {
     navigation.setOptions({
@@ -234,11 +206,6 @@ const AddLinkScreen = ({ navigation }) => {
           onPress={() => navigation.goBack()}
           style={{ marginLeft: 15 }}
         >
-          {/* <Ionicons
-            name="close-outline"
-            size={24}
-            color={theme.colors.primary}
-          /> */}
           <Text style={[styles.headerButtonText, { color: theme.colors.text }]}>
             Close
           </Text>
@@ -253,12 +220,6 @@ const AddLinkScreen = ({ navigation }) => {
           {isSubmitting ? (
             <ActivityIndicator color={theme.colors.loading} />
           ) : (
-            // <Ionicons name="save-outline" size={24} color="#0A84FF" />
-            // <Ionicons
-            //   name="save-outline"
-            //   size={24}
-            //   color={theme.colors.primary}
-            // />
             <Text
               style={[styles.headerButtonText, { color: theme.colors.text }]}
             >
