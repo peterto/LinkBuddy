@@ -24,9 +24,8 @@ import Animated, {
   ReanimatedLogLevel,
 } from "react-native-reanimated";
 import { useTheme, Card } from "@rneui/themed";
-import { Ionicons } from "@expo/vector-icons";
-import Feather from '@expo/vector-icons/Feather';
-import MaterialIcons from '@expo/vector-icons/MaterialIcons';
+import Feather from "@expo/vector-icons/Feather";
+import MaterialIcons from "@expo/vector-icons/MaterialIcons";
 import LinkdingApi from "../services/LinkdingApi";
 
 configureReanimatedLogger({
@@ -195,7 +194,11 @@ const ListItem = ({
           // onPress={item.is_archived ? handleUnarchive : handleArchive}
           onPress={isArchiveScreen ? handleUnarchive : handleArchive}
         >
-          <MaterialIcons name={isArchiveScreen ? "unarchive" : "archive"} size={24} color={theme.colors.text} />
+          <MaterialIcons
+            name={isArchiveScreen ? "unarchive" : "archive"}
+            size={24}
+            color={theme.colors.text}
+          />
           {/* <Text
             style={[
               styles.actionText,
@@ -206,8 +209,8 @@ const ListItem = ({
               },
             ]}
           > */}
-            {/* {item.is_archived ? "Unarchive" : "Archive"} */}
-            {/* {isArchiveScreen ? "Unarchive" : "Archive"} */}
+          {/* {item.is_archived ? "Unarchive" : "Archive"} */}
+          {/* {isArchiveScreen ? "Unarchive" : "Archive"} */}
           {/* </Text> */}
         </TouchableOpacity>
         <TouchableOpacity
@@ -310,15 +313,12 @@ const ListItem = ({
                   />
                 )}
                 <Pressable
-                  // style={({ pressed }) => pressed ? { color: theme.colors.border } : { color: theme.colors.text }}
                   style={({ pressed }) => [
                     {
                       opacity: pressed ? 0.2 : 1,
                       backgroundColor: theme.colors.background,
                     },
-                    // styles.button,
                   ]}
-                  // onPress={() => _handlePressButtonAsync(item.url)}
                   onPress={handleUrlPress}
                   // delayPressIn={200}
                   // disabled={isSwipeActive}
@@ -327,7 +327,6 @@ const ListItem = ({
                   <View style={styles.textContent}>
                     <Text
                       style={[styles.title, { color: theme.colors.text }]}
-                      // style={[styles.title, ({ pressed }) => pressed ? { color: theme.colors.warning } : { color: theme.colors.warning }]}
                       numberOfLines={3}
                       ellipsizeMode="tail"
                     >
@@ -340,7 +339,6 @@ const ListItem = ({
                         {getDomainFromUrl(item.url)}
                       </Text>
                       <Text style={[styles.date, { color: theme.colors.text }]}>
-                        {/* {moment(item.date_added).format("MMMM D, YYYY")} */}
                         {moment(item.date_added).format("YYYY-MM-DD")}
                       </Text>
                     </View>
@@ -396,10 +394,6 @@ const styles = StyleSheet.create({
     marginBottom: 5,
   },
   metadataRow: {
-    // position: "absolute",
-    // bottom: 8,
-    // left: 10,
-    // right: 10,
     flexDirection: "row",
     justifyContent: "space-between",
     width: "100%",
