@@ -11,7 +11,6 @@ import LinkdingApi from "../services/LinkdingApi";
 import { useTheme } from "@rneui/themed";
 import useAuthStore from "../store/useAuthStore";
 import * as Linking from "expo-linking";
-import * as WebBrowser from "expo-web-browser";
 // import * as DeviceInfo from "react-native-device-info";
 
 const SettingsScreen = ({ navigation }) => {
@@ -54,11 +53,6 @@ const SettingsScreen = ({ navigation }) => {
   };
 
   const handleLogoutAction = async () => {
-    // await SecureStore.deleteItemAsync("jwtToken");
-    // await SecureStore.deleteItemAsync("baseURL");
-    // await SecureStore.deleteItemAsync("isDarkMode");
-    // await SecureStore.deleteItemAsync("isLoggedIn");
-    // navigation.navigate("Login");
     const keysToDelete = [
       "jwtToken",
       "baseURL",
@@ -85,9 +79,7 @@ const SettingsScreen = ({ navigation }) => {
   const fetchUserPreferences = async () => {
     try {
       const response = await LinkdingApi.getUserProfile();
-      // const data = await response.json();
       data = await response;
-      // console.log(response);
       setUserPreferences({
         username: data.username,
         enableWebhooks: data.enable_webhooks,
@@ -100,37 +92,12 @@ const SettingsScreen = ({ navigation }) => {
     }
   };
 
-  // const handleLogout = async () => {
-  //   try {
-  //     await handleLogoutAction();
-  //     navigation.replace("Login");
-  //   } catch (error) {
-  //     console.log("Error logging out:", error);
-  //   }
-  // };
-
   const handleLogout = async () => {
     try {
       await handleLogoutAction();
-      // Instead of navigation.replace, set isLoggedIn to false in SecureStore
       await SecureStore.setItem("isLoggedIn", "false");
-      // Reset entire navigation state
-      // navigation.reset({
-      //   index: 0,
-      //   routes: [{ name: "Login" }],
-      // });
-      // console.log("In logged out screen");
 
       await logout();
-
-      // navigation.navigate("Login");
-
-      // if (navigationRef.isReady()) {
-      //   navigationRef.reset({
-      //     index: 0,
-      //     routes: [{ name: 'Login' }]
-      //   });
-      // }
     } catch (error) {
       console.error("Error logging out:", error);
     }
@@ -142,7 +109,6 @@ const SettingsScreen = ({ navigation }) => {
   };
 
   const handleEmailPress = () => {
-    
     // let deviceId = DeviceInfo.getDeviceId();
     const email = "mailto:linkbuddyapp@gmail.com";
     const subject = "LinkBuddy [Support Request]";
