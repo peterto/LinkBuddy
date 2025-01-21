@@ -36,7 +36,6 @@ const UnifiedLinksScreen = ({ navigation, route }) => {
 
   const limit = 100;
 
-
   useEffect(() => {
     const delaySearch = setTimeout(
       () => {
@@ -62,7 +61,6 @@ const UnifiedLinksScreen = ({ navigation, route }) => {
     setTotalBookmarks((prev) => prev - 1); // Update total count
   };
 
-  // Update the fetchLinks function with this modified version
   const fetchLinks = async () => {
     try {
       setLoading(true);
@@ -121,9 +119,6 @@ const UnifiedLinksScreen = ({ navigation, route }) => {
             response = await LinkdingApi.getUntaggedBookmarks({
               limit,
               offset,
-              // q: "!untagged",
-              // query: searchParam ? `${searchParam}` : "",
-              // q: searchParam ? `${searchParam}` : "",
               q: searchParam,
             });
             break;
@@ -161,7 +156,6 @@ const UnifiedLinksScreen = ({ navigation, route }) => {
     } finally {
       setLoading(false);
     }
-
   };
 
   const handleLoadMore = () => {
@@ -172,9 +166,6 @@ const UnifiedLinksScreen = ({ navigation, route }) => {
   };
 
   const getItemLayout = (data, index) => ({
-    // length: 100, // Approximate height of each item
-    // offset: 100 * index,
-    // index,
     length: 100 + 1, // Add 1 for the divider height
     offset: (100 + 1) * index,
     index,
@@ -208,19 +199,22 @@ const UnifiedLinksScreen = ({ navigation, route }) => {
     }
   };
 
-  const renderItem = useCallback(({ item }) => (
-    <ListItem
-      item={item}
-      navigation={navigation}
-      onRemoveItem={handleRemoveItem}
-      isArchiveScreen={path === "archive"}
-      onScroll={handleListScroll}
-      onTouchStart={handleListTouchStart}
-    />
-  ), [navigation, path, handleRemoveItem, handleListScroll, handleListTouchStart]);
+  const renderItem = useCallback(
+    ({ item }) => (
+      <ListItem
+        item={item}
+        navigation={navigation}
+        onRemoveItem={handleRemoveItem}
+        isArchiveScreen={path === "archive"}
+        onScroll={handleListScroll}
+        onTouchStart={handleListTouchStart}
+      />
+    ),
+    [navigation, path, handleRemoveItem, handleListScroll, handleListTouchStart]
+  );
 
   return (
-     <SafeAreaView
+    <SafeAreaView
       style={[styles.safeArea, { backgroundColor: theme.colors.background }]}
     >
       <StatusBar
@@ -230,27 +224,6 @@ const UnifiedLinksScreen = ({ navigation, route }) => {
       />
 
       {/* <AddLinkButton navigation={navigation} /> */}
-      {/* <Searchbar
-        placeholder="Search links..."
-        onChangeText={(query) => {
-          setSearchQuery(query);
-          setOffset(0);
-          setLinks([]);
-        }}
-        value={searchQuery}
-        style={{
-          margin: 10,
-          // backgroundColor: isDarkMode ? "#333" : "#fff",
-          backgroundColor: theme.colors.backgroundPlaceHolder,
-        }}
-      /> */}
-      {/* <CustomSearchBar
-        searchQuery={searchQuery}
-        setSearchQuery={setSearchQuery}
-        setOffset={setOffset}
-        setLinks={setLinks}
-        theme={theme}
-      /> */}
 
       {/* In header */}
       {/* <CustomSearchBar
@@ -276,23 +249,8 @@ const UnifiedLinksScreen = ({ navigation, route }) => {
           />
         }
         data={links}
-        // renderItem={({ item }) => (
-        //   <ListItem
-        //     item={item}
-        //     navigation={navigation}
-        //     onRemoveItem={handleRemoveItem}
-        //     isArchiveScreen={path === "archive"}
-        //     onScroll={handleListScroll}
-        //     onTouchStart={handleListTouchStart}
-        //   />
-        // )}
         renderItem={renderItem}
-        // getItemLayout={getItemLayout}
-        // keyExtractor={(item) => item.id.toString()}
         keyExtractor={(item) => `link-${item.id}`}
-        // ItemSeparatorComponent={() => (
-        //   <Divider width={1} color={theme.colors.text} />
-        // )}
         onEndReached={handleLoadMore}
         onEndReachedThreshold={0.5}
         ListFooterComponent={
@@ -309,10 +267,7 @@ const UnifiedLinksScreen = ({ navigation, route }) => {
             colors={[theme.colors.text]}
           />
         }
-        contentContainerStyle={[
-          styles.container,
-          theme.colors.background,
-        ]}
+        contentContainerStyle={[styles.container, theme.colors.background]}
         windowSize={5}
         maxToRenderPerBatch={10}
         updateCellsBatchingPeriod={50}
@@ -340,18 +295,9 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: "#f5f5f5",
   },
-  darkSafeArea: {
-    backgroundColor: "#121212",
-  },
   container: {
     padding: 10,
     flexGrow: 1,
-  },
-  containerColor: {
-    backgroundColor: "#121212",
-  },
-  darkModeContainerColor: {
-    backgroundColor: "#ffffff",
   },
   header: {
     flexDirection: "row",
@@ -359,26 +305,16 @@ const styles = StyleSheet.create({
     padding: 10,
     borderBottomColor: "#eee",
   },
-  backButton: {
-    padding: 8,
-  },
-  headerTitle: {
-    fontSize: 20,
-    fontWeight: "bold",
-    marginLeft: 10,
-  },
   listDivider: {
     width: "100%",
-    // marginLeft: 10,
-    // marginRight: 10,
     alignSelf: "center",
   },
   androidHeader: {
     elevation: 4,
     paddingTop: StatusBar.currentHeight,
     height: 56 + StatusBar.currentHeight,
-    justifyContent: 'center',
-    shadowColor: '#000',
+    justifyContent: "center",
+    shadowColor: "#000",
     shadowOffset: {
       width: 0,
       height: 2,
@@ -389,8 +325,8 @@ const styles = StyleSheet.create({
   androidHeaderTitle: {
     // color: theme.colors.text,
     fontSize: 20,
-    fontWeight: 'bold',
-    textAlign: 'center'
+    fontWeight: "bold",
+    textAlign: "center",
   },
 });
 
