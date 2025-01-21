@@ -2,15 +2,10 @@ import { View, Text, StyleSheet, ActivityIndicator } from "react-native";
 import { useTheme } from "@rneui/themed";
 
 const renderFooter = ({ totalBookmarks, loading, hasMore, theme: theme }) => {
-  // console.log(theme);
   if (loading) {
     return (
       <View style={styles.footer}>
-        <ActivityIndicator
-          size="large"
-          // color={isDarkMode ? darkModeUrlTitleTextColor : urlTitleTextColor}
-          color={theme.colors.text}
-        />
+        <ActivityIndicator size="large" color={theme.colors.text} />
       </View>
     );
   }
@@ -18,20 +13,9 @@ const renderFooter = ({ totalBookmarks, loading, hasMore, theme: theme }) => {
   if (!hasMore) {
     return (
       <View
-        style={[
-          styles.footer,
-          // { backgroundColor: isDarkMode ? darkModeCardColor : cardColor },
-          { backgroundColor: theme.colors.background },
-        ]}
+        style={[styles.footer, { backgroundColor: theme.colors.background }]}
       >
-        <Text
-          style={[
-            styles.totalCount,
-            // { color: isDarkMode ? darkModeFontColor : fontColor },
-            { color: theme.colors.text },
-          ]}
-        >
-          {/* {totalBookmarks} Items Loaded */}
+        <Text style={[styles.totalCount, { color: theme.colors.text }]}>
           {totalBookmarks} {totalBookmarks === 1 ? "Bookmark" : "Bookmarks"}
         </Text>
       </View>
