@@ -5,10 +5,7 @@ Unofficial iOS client for [linkding](https://linkding.link), [github for linkdin
 
 <!-- ![](/assets/screenshots/2025-01-16%2018-09-38%20High%20Res%20Screenshot.png) -->
 
- <img height="500px" src="./assets/screenshots/2025-01-16 19-39-37 High Res Screenshot.png" />
- <img height="500px" src="./assets/screenshots/2025-01-16 19-39-02 High Res Screenshot.png" />
- <img height="500px" src="./assets/screenshots/2025-01-16 19-42-08 High Res Screenshot.png" />
- <img height="500px" src="./assets/screenshots/2025-01-16 19-42-52 High Res Screenshot.png" />
+ <img height="500px" src="./assets/screenshots/2025-01-16 19-39-37 High Res Screenshot.png" /> <img height="500px" src="./assets/screenshots/2025-01-16 19-39-02 High Res Screenshot.png" /> <img height="500px" src="./assets/screenshots/2025-01-16 19-42-08 High Res Screenshot.png" /> <img height="500px" src="./assets/screenshots/2025-01-16 19-42-52 High Res Screenshot.png" />
 
 <br />
 
