@@ -1,5 +1,6 @@
 # ![](/assets/favicon.png) 
 # LinkBuddy: For Linkding
+[<img height="50px" src="./assets/logos/Download_on_the_App_Store_Badge_US-UK_blk_092917.png" />](https://apps.apple.com/us/app/linkbuddy-for-linkding/id6740408952)
 
 Unofficial iOS client for [linkding](https://linkding.link), [github for linkding](https://github.com/sissbruecker/linkding), selfhosted bookmarking service. 
 
