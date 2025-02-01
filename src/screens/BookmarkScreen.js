@@ -98,7 +98,7 @@ const BookmarkScreen = ({ route }) => {
         throw new Error("Failed to update bookmark");
       }
     } catch (error) {
-      Alert.alert("Error", error.message);
+      Alert.alert("Something went wrong, please try again", error.message);
     } finally {
       setIsLoading(false);
     }

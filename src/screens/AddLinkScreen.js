@@ -13,6 +13,7 @@ import {
   Modal,
   StatusBar,
   Pressable,
+  Alert,
 } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
 import * as Clipboard from "expo-clipboard";
@@ -160,6 +161,7 @@ const AddLinkScreen = ({ navigation }) => {
       if (!response.ok) {
         const errorData = await response.json();
         console.error("Server error:", errorData);
+        Alert.alert("Something went wrong, please try again", error.message);
         throw new Error(`HTTP error! status: ${response.status}`);
       }
 
@@ -174,6 +176,7 @@ const AddLinkScreen = ({ navigation }) => {
       }
     } catch (error) {
       console.error("Error adding link:", error);
+      Alert.alert("Something went wrong, please try again", error.message);
     } finally {
       setIsSubmitting(false);
     }
@@ -259,7 +262,7 @@ const AddLinkScreen = ({ navigation }) => {
                     borderColor: theme.colors.text,
                   },
                 ]}
-                placeholder="URL"
+                placeholder="https://duckduckgo.com/"
                 placeholderTextColor={theme.colors.placeholderTextColor}
                 value={url}
                 onChangeText={handleUrlChange}
