@@ -119,12 +119,12 @@ const BookmarkScreen = ({ route }) => {
               const response = await LinkdingApi.deleteBookmark(bookmarkID);
               if (response) {
                 Alert.alert("Success", "Bookmark deleted successfully");
-                navigation.goBack();
+                navigation.popToTop();
               } else {
                 throw new Error("Failed to delete bookmark");
               }
             } catch (error) {
-              Alert.alert("Error", error.message);
+              Alert.alert("Something went wrong, please try again", error.message);
             } finally {
               setIsLoading(false);
             }
