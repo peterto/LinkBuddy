@@ -7,6 +7,7 @@ export const dimensions = {
 
 export const defaultColors = {
   text: "#F9F6EF",
+  placeholderText: "#808080",
   background: "#010104",
   backgroundPlaceHolder: "#F2F2F2",
   primary: "#3A31D8",
@@ -19,10 +20,12 @@ export const defaultColors = {
   edit: "#2196F3",
   archive: "#4CAF50",
   delete: "#FF0000",
+  lightGrey: "#E0E0E0",
 };
 
 export const darkModeColors = {
   text: "#F9F6EF",
+  placeholderText: "#808080",
   background: "#010104",
   backgroundPlaceHolder: "#F2F2F2",
   primary: "#3A31D8",
@@ -39,6 +42,7 @@ export const darkModeColors = {
 
 export const lightModeColors = {
   text: "#040316",
+  placeholderText: "#D3D3D3",
   background: "#F9F6EF",
   backgroundPlaceHolder: "#C2C2F0",
   primary: "#2F27CE",

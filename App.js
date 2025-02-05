@@ -89,14 +89,13 @@ const App = () => {
     headerTitleStyle: {
       color: colors.text,
     },
-    statusBarColor: colors.text,
+    // statusBarColor: colors.background,
+    headerTitleAlign: "center",
   };
 
   const unifiedScreenOptions = {
     ...headerConfig,
     headerLargeTitle: true,
-    headerTitleAlign: "center",
-    headerTransparent: false,
     headerBlurEffect: Platform.OS === "ios" ? "regular" : undefined,
     // headerLargeTitleShadowVisible: false,
     headerStyle: {
@@ -201,7 +200,6 @@ const App = () => {
                     options={({ route }) => ({
                       title: route.params?.title || "Tags",
                       ...headerConfig,
-                      headerTitleAlign: "center",
                       headerLargeTitle: true,
                       gestureEnabled: true,
                       gestureDirection: "horizontal",

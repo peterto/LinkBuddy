@@ -100,6 +100,7 @@ const HomeScreenList = ({ navigation }) => {
       <StatusBar
         backgroundColor={theme.colors.background}
         barStyle={isDarkMode ? "light-content" : "dark-content"}
+        color={theme.colors.background}
       />
 
       <View

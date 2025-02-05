@@ -260,7 +260,8 @@ const AddLinkScreen = ({ navigation }) => {
                   },
                 ]}
                 placeholder="URL"
-                placeholderTextColor={theme.colors.placeholderTextColor}
+                placeholderTextColor={theme.colors.placeholderText}
+                // placeholderTextColor={theme.colors.}
                 value={url}
                 onChangeText={handleUrlChange}
                 autoCapitalize="none"
@@ -298,7 +299,7 @@ const AddLinkScreen = ({ navigation }) => {
                 },
               ]}
               placeholder="Title"
-              placeholderTextColor={theme.colors.placeholderTextColor}
+              placeholderTextColor={theme.colors.placeholderText}
               value={title}
               onChangeText={setTitle}
               color={theme.colors.text}
@@ -314,7 +315,7 @@ const AddLinkScreen = ({ navigation }) => {
                 },
               ]}
               placeholder="Description"
-              placeholderTextColor={theme.colors.placeholderTextColor}
+              placeholderTextColor={theme.colors.placeholderText}
               value={description}
               onChangeText={setDescription}
               multiline
@@ -331,7 +332,7 @@ const AddLinkScreen = ({ navigation }) => {
                 },
               ]}
               placeholder="tag1, tag2, tag3,..."
-              placeholderTextColor={theme.colors.placeholderTextColor}
+              placeholderTextColor={theme.colors.placeholderText}
               value={tags}
               onChangeText={setTags}
               color={theme.colors.text}
@@ -348,7 +349,7 @@ const AddLinkScreen = ({ navigation }) => {
                 },
               ]}
               placeholder="Notes"
-              placeholderTextColor={theme.colors.placeholderTextColor}
+              placeholderTextColor={theme.colors.placeholderText}
               value={notes}
               onChangeText={setNotes}
               multiline

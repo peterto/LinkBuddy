@@ -185,7 +185,7 @@ const BookmarkScreen = ({ route }) => {
           value={formData.url}
           onChangeText={(text) => setFormData({ ...formData, url: text })}
           placeholder="URL"
-          placeholderTextColor={theme.colors.placeholderTextColor}
+          placeholderTextColor={theme.colors.placeholderText}
           autoCapitalize="none"
           color={theme.colors.text}
           autoCorrect={false}
@@ -199,7 +199,7 @@ const BookmarkScreen = ({ route }) => {
           value={formData.title}
           onChangeText={(text) => setFormData({ ...formData, title: text })}
           placeholder="Title"
-          placeholderTextColor={theme.colors.placeholderTextColor}
+          placeholderTextColor={theme.colors.placeholderText}
           color={theme.colors.text}
         />
         <TextInput
@@ -213,7 +213,7 @@ const BookmarkScreen = ({ route }) => {
             setFormData({ ...formData, description: text })
           }
           placeholder="Description"
-          placeholderTextColor={theme.colors.placeholderTextColor}
+          placeholderTextColor={theme.colors.placeholderText}
           multiline
           numberOfLines={4}
           color={theme.colors.text}
@@ -227,7 +227,7 @@ const BookmarkScreen = ({ route }) => {
           value={formData.tags}
           onChangeText={(text) => setFormData({ ...formData, tags: text })}
           placeholder="tag1, tag2, tag3,..."
-          placeholderTextColor={theme.colors.placeholderTextColor}
+          placeholderTextColor={theme.colors.placeholderText}
           color={theme.colors.text}
           autoCapitalize="none"
         />
@@ -240,7 +240,7 @@ const BookmarkScreen = ({ route }) => {
           value={formData.notes}
           onChangeText={(text) => setFormData({ ...formData, notes: text })}
           placeholder="Notes"
-          placeholderTextColor={theme.colors.placeholderTextColor}
+          placeholderTextColor={theme.colors.placeholderText}
           multiline
           numberOfLines={4}
           color={theme.colors.text}
