@@ -25,7 +25,7 @@ const SettingsScreen = ({ navigation }) => {
     displayMode: "",
   });
   const [isDarkMode, setIsDarkMode] = useState(false);
-  const appVersion = "1.0.0";
+  const appVersion = "1.1.1";
   const jwtToken = SecureStore.getItem("jwtToken");
   const baseURL = SecureStore.getItem("baseURL");
   // console.log(baseURL);
