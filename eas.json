@@ -49,6 +49,14 @@
       "ios": {
         "simulator": true
       }
+    },
+    "production:apk": {
+      "env": {
+        "APP_VARIANT": "production"
+      },
+      "android": {
+        "buildType": "apk"
+      }
     }
   },
   "submit": {
