@@ -42,8 +42,21 @@ jobs:
         # run: eas build --platform android --local --output ${{ github.workspace }}/app-release.aab
         run: eas build --local --profile=production:apk --platform=android --output ${{ github.workspace }}/app-release.apk
 
+      - name: Copy APK to Release Directory
+        run: cp ${{ github.workspace }}/app-release.apk LinkBuddy-${{ github.ref_name }}.apk
+
       - name: Upload APK artifact
         uses: actions/upload-artifact@v4
         with:
           name: LinkBuddy-${{ github.ref_name }}.apk
           path: ${{ github.workspace }}/app-release.apk
+
+      - name: Create New Release
+        uses: softprops/action-gh-release@v2.2.1
+        if: startsWith(github.ref, 'refs/tags/')
+        with:
+          tag_name: ${{ github.ref_name }}
+          name: LinkBuddy ${{ github.ref_name }}
+          files: LinkBuddy-${{ github.ref_name }}.apk
+          draft: true
+          prerelease: false
