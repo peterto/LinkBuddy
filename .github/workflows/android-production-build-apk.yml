@@ -40,10 +40,10 @@ jobs:
 
       - name: Build Android app
         # run: eas build --platform android --local --output ${{ github.workspace }}/app-release.aab
-        run: eas build --local --profile=production:apk --platform=android --output ${{ github.workspace }}/LinkBuddy-${{ github.ref }}.apk
+        run: eas build --local --profile=production:apk --platform=android --output ${{ github.workspace }}/app-release.apk
 
       - name: Upload APK artifact
         uses: actions/upload-artifact@v4
         with:
-          name: app-release
-          path: ${{ github.workspace }}/LinkBuddy-${{ github.ref }}.apk
+          name: LinkBuddy-${{ github.ref_name }}.apk
+          path: ${{ github.workspace }}/app-release.apk
