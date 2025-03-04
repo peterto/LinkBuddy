@@ -18,6 +18,7 @@ import { useNavigation } from "@react-navigation/native";
 import LinkdingApi from "../services/LinkdingApi";
 import { useTheme, Button, Chip } from "@rneui/themed";
 import { Ionicons } from "@expo/vector-icons";
+import TagSelector from "../components/TagSelector";
 
 const BookmarkScreen = ({ route }) => {
   const { theme } = useTheme();
@@ -31,7 +32,8 @@ const BookmarkScreen = ({ route }) => {
     url: "",
     title: "",
     description: "",
-    tags: "",
+    // tags: "",
+    tags: [],
     notes: "",
     is_archived: false,
     unread: false,
@@ -51,7 +53,8 @@ const BookmarkScreen = ({ route }) => {
             url: bookmark.url || "",
             title: bookmark.title || "",
             description: bookmark.description || "",
-            tags: bookmark.tag_names?.join(", ") || "",
+            // tags: bookmark.tag_names?.join(", ") || "",
+            tags: bookmark.tag_names || [],
             notes: bookmark.notes || "",
             is_archived: bookmark.is_archived || false,
             unread: bookmark.unread || false,
@@ -74,12 +77,17 @@ const BookmarkScreen = ({ route }) => {
   const updateBookmark = async () => {
     setIsLoading(true);
 
+    // const bookmarkData = {
+    //   ...formData,
+    //   tag_names: formData.tags
+    //     .split(",")
+    //     .map((tag) => tag.trim())
+    //     .filter((tag) => tag),
+    // };
+
     const bookmarkData = {
       ...formData,
-      tag_names: formData.tags
-        .split(",")
-        .map((tag) => tag.trim())
-        .filter((tag) => tag),
+      tag_names: formData.tags,
     };
 
     try {
@@ -124,7 +132,10 @@ const BookmarkScreen = ({ route }) => {
                 throw new Error("Failed to delete bookmark");
               }
             } catch (error) {
-              Alert.alert("Something went wrong, please try again", error.message);
+              Alert.alert(
+                "Something went wrong, please try again",
+                error.message
+              );
             } finally {
               setIsLoading(false);
             }
@@ -176,6 +187,7 @@ const BookmarkScreen = ({ route }) => {
 
       <ScrollView
         style={[styles.container, { backgroundColor: theme.colors.background }]}
+        keyboardShouldPersistTaps="always"
       >
         <TextInput
           style={[
@@ -219,7 +231,7 @@ const BookmarkScreen = ({ route }) => {
           color={theme.colors.text}
         />
 
-        <TextInput
+        {/* <TextInput
           style={[
             styles.input,
             { borderColor: theme.colors.text, color: theme.colors.text },
@@ -230,7 +242,15 @@ const BookmarkScreen = ({ route }) => {
           placeholderTextColor={theme.colors.placeholderText}
           color={theme.colors.text}
           autoCapitalize="none"
+        /> */}
+
+        <TagSelector
+          tags={formData.tags}
+          setTags={(selectedTags) =>
+            setFormData({ ...formData, tags: selectedTags })
+          }
         />
+
         <TextInput
           style={[
             styles.input,

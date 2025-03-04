@@ -247,7 +247,7 @@ class LinkdingAPI {
   // Tags endpoints
   async getTags() {
     const headers = await this.getHeaders();
-    const response = await fetch(`${this.BASE_URL}/api/tags/`, {
+    const response = await fetch(`${this.BASE_URL}/api/tags/?limit=2000`, {
       headers,
     });
     return response.json();

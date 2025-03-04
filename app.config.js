@@ -91,6 +91,9 @@ export default {
       ],
       [
         "expo-share-intent"
+      ],
+      [
+        "expo-sqlite"
       ]
     ],
     "extra": {

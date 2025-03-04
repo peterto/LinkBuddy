@@ -14,12 +14,14 @@ import {
   StatusBar,
   Pressable,
   Alert,
+  Platform,
 } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
 import * as Clipboard from "expo-clipboard";
 import LinkdingApi from "../services/LinkdingApi";
 import { useTheme } from "@rneui/themed";
 import { useShareIntentContext } from "expo-share-intent";
+import TagSelector from "../components/TagSelector";
 
 const AddLinkScreen = ({ navigation }) => {
   const { theme } = useTheme();
@@ -87,7 +89,14 @@ const AddLinkScreen = ({ navigation }) => {
         setTitle(bookmark.title);
         setDescription(bookmark.description);
         setNotes(bookmark.notes || "");
-        setTags(bookmark.tag_names.join(", "));
+        // setTags(bookmark.tag_names.join(", "));
+        setTags(bookmark.tag_names);
+        // console.log(bookmark);
+        // const existingTags = checkData.bookmark.tag_names.map(tag => ({
+        //   label: tag,
+        //   value: tag
+        // }));
+        // setTags(existingTags);
       } else {
         const metadataResponse = await LinkdingApi.checkWebsiteMetadata(
           urlToCheck
@@ -99,7 +108,13 @@ const AddLinkScreen = ({ navigation }) => {
         // Pre-fill with metadata from the URL
         setTitle(metadataData.metadata.title || "");
         setDescription(metadataData.metadata.description || "");
-        setTags(metadataData.auto_tags.join(", "));
+        // setTags(metadataData.auto_tags.join(", "));
+        setTags(metadataData.auto_tags);
+        // const autoTags = metadataData.auto_tags.map(tag => ({
+        //   label: tag,
+        //   value: tag
+        // }));
+        // setTags(autoTags);
         setNotes("");
       }
     } catch (error) {
@@ -145,12 +160,13 @@ const AddLinkScreen = ({ navigation }) => {
         url: formattedUrl,
         title: title,
         description: description,
-        tag_names: tags
-          ? tags
-              .split(",")
-              .map((tag) => tag.trim())
-              .filter((tag) => tag.length > 0)
-          : [],
+        // tag_names: tags
+        //   ? tags
+        //       .split(",")
+        //       .map((tag) => tag.trim())
+        //       .filter((tag) => tag.length > 0)
+        //   : [],
+        tag_names: tags,
         notes: notes,
         is_archived: false,
         unread: true,
@@ -237,7 +253,7 @@ const AddLinkScreen = ({ navigation }) => {
   return (
     <KeyboardAvoidingView
       style={[styles.container, { backgroundColor: theme.colors.background }]}
-      behavior="padding"
+      behavior={Platform.OS === "ios" ? "padding" : "height"}
       enabled
       keyboardVerticalOffset={100}
     >
@@ -249,6 +265,7 @@ const AddLinkScreen = ({ navigation }) => {
       />
       <ScrollView
         style={[styles.container, { backgroundColor: theme.colors.background }]}
+        keyboardShouldPersistTaps="always"
       >
         <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
           <View style={styles.inputContainer}>
@@ -326,7 +343,7 @@ const AddLinkScreen = ({ navigation }) => {
               color={theme.colors.text}
             />
 
-            <TextInput
+            {/* <TextInput
               style={[
                 styles.input,
                 {
@@ -340,7 +357,9 @@ const AddLinkScreen = ({ navigation }) => {
               onChangeText={setTags}
               color={theme.colors.text}
               autoCapitalize="none"
-            />
+            /> */}
+
+            <TagSelector tags={tags} setTags={setTags} />
 
             <TextInput
               style={[
