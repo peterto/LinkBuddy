@@ -12,7 +12,7 @@ import {
 import LinkdingApi from "../services/LinkdingApi";
 
 import { useTheme, Divider } from "@rneui/themed";
-
+import { useRoute } from "@react-navigation/native";
 
 const TagScreen = ({ navigation }) => {
   const [tags, setTags] = useState([]);
@@ -21,10 +21,21 @@ const TagScreen = ({ navigation }) => {
   const { theme } = useTheme();
 
   const isDarkMode = useColorScheme() === "dark";
+  const route = useRoute();
 
   useEffect(() => {
     fetchTags();
   }, []);
+
+  useEffect(() => {
+    if (route.params?.refresh) {
+      // Clear the parameter
+      navigation.setParams({ refresh: undefined });
+      
+      // Refresh your data
+      fetchTags();
+    }
+  }, [route.params?.refresh]);
 
   const fetchTags = async () => {
     try {

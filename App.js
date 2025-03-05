@@ -15,6 +15,7 @@ import SettingsScreen from "./src/screens/SettingsScreen";
 import BookmarkScreen from "./src/screens/BookmarkScreen";
 import UnifiedLinksScreen from "./src/screens/UnifiedLinksScreen";
 import SplashScreen from "./src/screens/SplashScreen";
+import AddTagScreen from "./src/screens/AddTagScreen";
 import { SafeAreaProvider } from "react-native-safe-area-context";
 import { ThemeProvider } from "@rneui/themed";
 import { themeRNEUI } from "./src/styles/theme";
@@ -188,10 +189,17 @@ const App = () => {
                   <Stack.Screen
                     name="TagScreen"
                     component={TagScreen}
-                    options={{
+                    options={({ navigation }) => ({
                       ...unifiedScreenOptions,
                       title: "Tags",
-                    }}
+                      headerRight: () => (
+                        <TouchableOpacity
+                          onPress={() => navigation.navigate("AddTagScreen")}
+                        >
+                          <Ionicons name="add-circle-outline" size={24} color={colors.text} />
+                        </TouchableOpacity>
+                      ),
+                    })}
                   />
                   <Stack.Screen
                     name="LinksByTagScreen"
@@ -204,6 +212,17 @@ const App = () => {
                       gestureEnabled: true,
                       gestureDirection: "horizontal",
                     })}
+                  />
+                  <Stack.Screen
+                    name="AddTagScreen"
+                    component={AddTagScreen}
+                    options={{
+                      title: "Add New Tag",
+                      ...headerConfig,
+                      gestureEnabled: true,
+                      presentation: "modal",
+                      // animation: "simple_push",
+                    }}
                   />
                   <Stack.Screen
                     name="AddLinkScreen"
