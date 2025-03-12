@@ -253,6 +253,17 @@ class LinkdingAPI {
     return response.json();
   }
 
+  async getTagsWithParams(params = {}) {
+    const headers = await this.getHeaders();
+    let url = `${this.BASE_URL}/api/tags/?limit=${params.limit}&offset=${params.offset}`;
+
+    const response = await fetch(url, {
+      headers,
+    });
+
+    return response;
+  }
+
   // Create a new tag
   async createTag(tagName) {
     const headers = await this.getHeaders();
