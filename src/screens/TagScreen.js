@@ -92,8 +92,6 @@ useEffect(() => {
       // Use local offset variable to ensure we're fetching from the beginning on refresh
       const fetchOffset = refresh ? 0 : offset;
       
-      console.log(`Fetching tags with offset: ${fetchOffset}, limit: ${limit}`);
-      
       const response = await LinkdingApi.getTagsWithParams({
         limit,
         offset: fetchOffset,
@@ -105,10 +103,8 @@ useEffect(() => {
         // When refreshing or at offset 0, replace tags completely
         setTags((prevTags) => {
           if (refresh || fetchOffset === 0) {
-            console.log("Replacing tags with new data");
             return data.results;
           } else {
-            console.log("Appending new tags to existing tags");
             return [...prevTags, ...data.results];
           }
         });
