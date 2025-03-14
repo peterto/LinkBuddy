@@ -1,6 +1,6 @@
 {
   "name": "linkbuddy",
-  "version": "1.0.0",
+  "version": "1.2.0",
   "main": "expo/AppEntry.js",
   "scripts": {
     "start": "expo start",
@@ -41,7 +41,8 @@
     "react-native-screens": "~4.4.0",
     "react-native-webview": "13.12.5",
     "zustand": "^5.0.2",
-    "expo-sqlite": "~15.1.2"
+    "expo-sqlite": "~15.1.2",
+    "expo-application": "~6.0.2"
   },
   "devDependencies": {
     "@babel/core": "^7.20.0",

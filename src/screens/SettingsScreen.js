@@ -12,6 +12,7 @@ import { useTheme } from "@rneui/themed";
 import useAuthStore from "../store/useAuthStore";
 import * as Linking from "expo-linking";
 // import * as DeviceInfo from "react-native-device-info";
+import * as Application from "expo-application";
 
 const SettingsScreen = ({ navigation }) => {
   const logout = useAuthStore((state) => state.logout);
@@ -25,7 +26,8 @@ const SettingsScreen = ({ navigation }) => {
     displayMode: "",
   });
   const [isDarkMode, setIsDarkMode] = useState(false);
-  const appVersion = "1.1.1";
+  // const appVersion = "1.1.1";
+  const appVersion = Application.nativeApplicationVersion;
   const jwtToken = SecureStore.getItem("jwtToken");
   const baseURL = SecureStore.getItem("baseURL");
   // console.log(baseURL);
