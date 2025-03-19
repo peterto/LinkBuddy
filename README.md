@@ -1,4 +1,4 @@
-# ![](/assets/favicon.png) 
+# ![](/assets/favicon-rounded.png) 
 # LinkBuddy: For Linkding
 [<img height="50px" src="./assets/logos/Download_on_the_App_Store_Badge_US-UK_blk_092917.png" />](https://apps.apple.com/us/app/linkbuddy-for-linkding/id6740408952)
 
@@ -28,7 +28,7 @@ If you find a bug or have improvement feel free to [submit issues](https://githu
 - src
     - assets - static files
     - components - common React Native components
-    - contexts - zustand context store
+    - contexts/store - zustand context store
     - screens - navigation screens
     - styles - color styling for dark/light mode
     - services - API services for linkding
@@ -40,6 +40,8 @@ If you find a bug or have improvement feel free to [submit issues](https://githu
 - [React Native Elements](https://reactnativeelements.com/) for styling
 - [React Navigation](https://reactnavigation.org/)
 - [React Native Gesture Handler](https://www.npmjs.com/package/react-native-gesture-handler) for handling touch input
+- [expo-share-intent](https://github.com/achorein/expo-share-intent/) for the share extension
+- [react-native-select](https://github.com/azeezat/react-native-select) for the tagging bottom sheet
 
 
 ### Known issues
