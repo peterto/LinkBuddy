@@ -50,6 +50,7 @@ const getDomainFromUrl = (url) => {
 };
 
 const _handlePressButtonAsync = async (url) => {
+  Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Light);
   WebBrowser.openBrowserAsync(url);
 };
 
@@ -123,6 +124,19 @@ const ListItem = ({
     if (!isSwipeActive && !swipeableRef.current?.isOpen) {
       _handlePressButtonAsync(item.url);
     }
+  };
+
+  const handleTagPress = (tagName) => {
+    // Close any open swipeable first
+    if (swipeableRef.current) {
+      swipeableRef.current.close();
+    }
+
+    // Navigate to LinksByTagScreen with the selected tag
+    Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Light);
+    navigation.push("LinksByTagScreen", {
+      tags: { name: tagName }
+    });
   };
 
   const handleArchive = () => {
@@ -280,6 +294,38 @@ const ListItem = ({
     );
   };
 
+  const renderTags = () => {
+    if (!item.tag_names || item.tag_names.length === 0) {
+      return null;
+    }
+
+    const firstThreeTags = item.tag_names.slice(0, 3);
+
+    return (
+      <View style={styles.tagsContainer}>
+        {firstThreeTags.map((tag, index) => (
+          <TouchableOpacity
+            key={index}
+            style={[styles.tagPill, { backgroundColor: theme.colors.primary }]}
+            onPress={() => handleTagPress(tag)}
+            activeOpacity={0.7}
+          >
+            <Text style={[styles.tagText, { color: theme.colors.text }]}>
+              {tag}
+            </Text>
+          </TouchableOpacity>
+        ))}
+        {item.tag_names.length > 3 && (
+          <Text style={[styles.moreTagsText, { color: theme.colors.text }]}>
+            +{item.tag_names.length - 3}
+          </Text>
+        )}
+      </View>
+    );
+  };
+
+
+
   return (
     <GestureHandlerRootView>
       <ReanimatedSwipeable
@@ -301,7 +347,6 @@ const ListItem = ({
           delayPressIn={200}
           hitSlop={{ left: 0, right: 0 }}
           pressRetentionOffset={{ left: 5, right: 5 }}
-          onLongPress={handleLongPress}
         >
           <Animated.View style={animatedStyle}>
             <Card
@@ -340,6 +385,8 @@ const ListItem = ({
                     ]}
                   />
                 )}
+
+                  <View style={styles.textContent}>
                 <Pressable
                   style={({ pressed }) => [
                     {
@@ -348,11 +395,11 @@ const ListItem = ({
                     },
                   ]}
                   onPress={handleUrlPress}
+                  onLongPress={handleLongPress}
                 // delayPressIn={200}
                 // disabled={isSwipeActive}
                 // activeOpacity={0.7}
                 >
-                  <View style={styles.textContent}>
                     <Text
                       style={[styles.title, { color: theme.colors.text }]}
                       numberOfLines={3}
@@ -370,8 +417,9 @@ const ListItem = ({
                         {moment(item.date_added).format("YYYY-MM-DD")}
                       </Text>
                     </View>
-                  </View>
                 </Pressable>
+                {renderTags()}
+                  </View>
               </View>
             </Card>
           </Animated.View>
@@ -463,6 +511,28 @@ const styles = StyleSheet.create({
     padding: 5,
     fontSize: 17,
   },
+  tagsContainer: {
+    flexDirection: "row",
+    // flexWrap: "wrap",
+    alignItems: "center",
+    marginTop: 10,
+    // marginBottom: 4,
+    // marginLeft: 10,
+  },
+  tagPill: {
+    paddingHorizontal: 8,
+    paddingVertical: 4,
+    borderRadius: 8,
+    marginRight: 4,
+    marginBottom: 4,
+  },
+  tagText: {
+    fontSize: 12,
+  },
+  moreTagsText: {
+    fontSize: 12,
+    alignContent: "center",
+  }
 });
 
 export default memo(ListItem);
