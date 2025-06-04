@@ -30,6 +30,7 @@ import Feather from "@expo/vector-icons/Feather";
 import MaterialIcons from "@expo/vector-icons/MaterialIcons";
 import LinkdingApi from "../services/LinkdingApi";
 import * as Sharing from "expo-sharing"
+import * as Haptics from "expo-haptics"
 
 configureReanimatedLogger({
   level: ReanimatedLogLevel.warn,
@@ -86,7 +87,9 @@ const ListItem = ({
     //  console.log("Long press successful");
     // console.log("Long press - sharing title:", item.title);
     // console.log("Long press - sharing URL:", item.url);
-
+    // Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Heavy);
+    Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Heavy);
+    // Haptics.selectionAsync();
     try {
       const isAvailable = await Sharing.isAvailableAsync();
       if (isAvailable) {
