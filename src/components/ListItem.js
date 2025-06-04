@@ -12,6 +12,8 @@ import * as WebBrowser from "expo-web-browser";
 import {
   GestureHandlerRootView,
   Pressable,
+  Gesture,
+  GestureDetector,
 } from "react-native-gesture-handler";
 
 import ReanimatedSwipeable from "react-native-gesture-handler/ReanimatedSwipeable";
@@ -27,6 +29,7 @@ import { useTheme, Card } from "@rneui/themed";
 import Feather from "@expo/vector-icons/Feather";
 import MaterialIcons from "@expo/vector-icons/MaterialIcons";
 import LinkdingApi from "../services/LinkdingApi";
+import * as Sharing from "expo-sharing"
 
 configureReanimatedLogger({
   level: ReanimatedLogLevel.warn,
@@ -77,6 +80,27 @@ const ListItem = ({
       activeSwipeable.close();
     }
     activeSwipeable = swipeableRef.current;
+  };
+
+  const handleLongPress = async () => {
+    //  console.log("Long press successful");
+    // console.log("Long press - sharing title:", item.title);
+    // console.log("Long press - sharing URL:", item.url);
+
+    try {
+      const isAvailable = await Sharing.isAvailableAsync();
+      if (isAvailable) {
+        // Sharing.shareAsync(item.url);
+        Sharing.shareAsync(item.url, {
+          dialogTitle: `${item.title}`,
+        });
+      } else {
+        console.log("Sharing is not available on this device.");
+      }
+    } catch (error) {
+      console.error("Error sharing URL:", error);
+      Alert.alert("Error", "Failed to share URL. Please try again.");
+    }
   };
 
   const handleSwipeableOpen = () => {
@@ -274,6 +298,7 @@ const ListItem = ({
           delayPressIn={200}
           hitSlop={{ left: 0, right: 0 }}
           pressRetentionOffset={{ left: 5, right: 5 }}
+          onLongPress={handleLongPress}
         >
           <Animated.View style={animatedStyle}>
             <Card
@@ -294,7 +319,7 @@ const ListItem = ({
                     onPress={() =>
                       _handlePressButtonAsync(item.preview_image_url)
                     }
-                    // delayPressIn={200}
+                  // delayPressIn={200}
                   >
                     <Card.Image
                       source={{ uri: item.preview_image_url }}
@@ -320,9 +345,9 @@ const ListItem = ({
                     },
                   ]}
                   onPress={handleUrlPress}
-                  // delayPressIn={200}
-                  // disabled={isSwipeActive}
-                  // activeOpacity={0.7}
+                // delayPressIn={200}
+                // disabled={isSwipeActive}
+                // activeOpacity={0.7}
                 >
                   <View style={styles.textContent}>
                     <Text
