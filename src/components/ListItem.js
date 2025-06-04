@@ -1,4 +1,4 @@
-import React, { useRef, memo, useState } from "react";
+import React, { useRef, memo, useState, useEffect } from "react";
 import {
   View,
   Text,
@@ -54,6 +54,12 @@ const _handlePressButtonAsync = async (url) => {
   WebBrowser.openBrowserAsync(url);
 };
 
+// Helper function to estimate text width
+const estimateTextWidth = (text, fontSize = styles.tagText.fontSize) => {
+  // Rough estimation: each character is about 0.6 times the font size in width
+  return (text.length * fontSize * 0.6) + 16 + 4;
+};
+
 const ListItem = ({
   item,
   navigation,
@@ -65,12 +71,62 @@ const ListItem = ({
   const { theme } = useTheme();
   const swipeableRef = useRef(null);
   const [isSwipeActive, setIsSwipeActive] = useState(false);
+  const [availableWidth, setAvailableWidth] = useState(SCREEN_WIDTH - 120);
+  const [visibleTags, setVisibleTags] = useState([]);
+  const [remainingCount, setRemainingCount] = useState(0);
 
   const opacity = useSharedValue(1);
 
   const animatedStyle = useAnimatedStyle(() => ({
     opacity: opacity.value,
   }));
+
+  // Calculate which tags can fit in the available space
+  useEffect(() => {
+    if (!item.tag_names || item.tag_names.length === 0) {
+      setVisibleTags([]);
+      setRemainingCount(0);
+      return;
+    }
+
+    const tagWidths = item.tag_names.map(tag => estimateTextWidth(tag));
+    const moreTextWidth = 30; // Estimated width for "+X" text
+
+    let totalWidth = 0;
+    let visibleTagCount = 0;
+
+    // Calculate how many tags can fit
+    for (let i = 0; i < tagWidths.length; i++) {
+      const tagWidth = tagWidths[i];
+      const remainingTags = tagWidths.length - i - 1;
+      const needsMoreText = remainingTags > 0;
+
+      if (totalWidth + tagWidth + (needsMoreText ? moreTextWidth : 0) <= availableWidth) {
+        totalWidth += tagWidth;
+        visibleTagCount++;
+      } else {
+        break;
+      }
+    }
+
+    // If we can't fit all tags and the last visible tag + more text exceeds width,
+    // reduce visible count by 1 to make room for "+X more"
+    if (visibleTagCount < item.tag_names.length && visibleTagCount > 0) {
+      const lastTagWidth = tagWidths[visibleTagCount - 1];
+      if (totalWidth - lastTagWidth + moreTextWidth > availableWidth) {
+        visibleTagCount = Math.max(0, visibleTagCount - 1);
+      }
+    }
+
+    setVisibleTags(item.tag_names.slice(0, visibleTagCount));
+    setRemainingCount(Math.max(0, item.tag_names.length - visibleTagCount));
+  }, [item.tag_names, availableWidth]);
+
+  // Measure the actual available width for tags
+  const onTextContentLayout = (event) => {
+    const { width } = event.nativeEvent.layout;
+    setAvailableWidth(width - 20); // Subtract padding
+  };
 
   const fadeOut = () => {
     "worklet";
@@ -299,11 +355,9 @@ const ListItem = ({
       return null;
     }
 
-    const firstThreeTags = item.tag_names.slice(0, 3);
-
     return (
       <View style={styles.tagsContainer}>
-        {firstThreeTags.map((tag, index) => (
+        {visibleTags.map((tag, index) => (
           <TouchableOpacity
             key={index}
             style={[styles.tagPill, { backgroundColor: theme.colors.primary }]}
@@ -315,9 +369,9 @@ const ListItem = ({
             </Text>
           </TouchableOpacity>
         ))}
-        {item.tag_names.length > 3 && (
+        {remainingCount > 0 && (
           <Text style={[styles.moreTagsText, { color: theme.colors.text }]}>
-            +{item.tag_names.length - 3}
+            +{remainingCount}
           </Text>
         )}
       </View>
@@ -386,20 +440,20 @@ const ListItem = ({
                   />
                 )}
 
-                  <View style={styles.textContent}>
-                <Pressable
-                  style={({ pressed }) => [
-                    {
-                      opacity: pressed ? 0.2 : 1,
-                      backgroundColor: theme.colors.background,
-                    },
-                  ]}
-                  onPress={handleUrlPress}
-                  onLongPress={handleLongPress}
-                // delayPressIn={200}
-                // disabled={isSwipeActive}
-                // activeOpacity={0.7}
-                >
+                <View style={styles.textContent}>
+                  <Pressable
+                    style={({ pressed }) => [
+                      {
+                        opacity: pressed ? 0.2 : 1,
+                        backgroundColor: theme.colors.background,
+                      },
+                    ]}
+                    onPress={handleUrlPress}
+                    onLongPress={handleLongPress}
+                  // delayPressIn={200}
+                  // disabled={isSwipeActive}
+                  // activeOpacity={0.7}
+                  >
                     <Text
                       style={[styles.title, { color: theme.colors.text }]}
                       numberOfLines={3}
@@ -417,9 +471,9 @@ const ListItem = ({
                         {moment(item.date_added).format("YYYY-MM-DD")}
                       </Text>
                     </View>
-                </Pressable>
-                {renderTags()}
-                  </View>
+                  </Pressable>
+                  {renderTags()}
+                </View>
               </View>
             </Card>
           </Animated.View>
