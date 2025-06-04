@@ -181,9 +181,12 @@ const App = () => {
                     name="Links"
                     component={UnifiedLinksScreen}
                     initialParams={{ path: "all" }} // or 'archive' or 'bytag'
-                    options={({ route }) => ({
+                    options={({ route, navigation }) => ({
                       title: route.params?.title || "Your Links",
                       ...unifiedScreenOptions,
+                      headerRight: () => (
+                        <AddLinkButton navigation={navigation} />
+                      ),
                     })}
                   />
                   <Stack.Screen
