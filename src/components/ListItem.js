@@ -352,7 +352,11 @@ const ListItem = ({
 
   const renderTags = () => {
     if (!item.tag_names || item.tag_names.length === 0) {
-      return null;
+      // return null;
+      return (
+        <View style={[styles.tagsContainer, styles.emptyTagsContainer]}>
+        </View>
+      )
     }
 
     return (
@@ -364,7 +368,7 @@ const ListItem = ({
             onPress={() => handleTagPress(tag)}
             activeOpacity={0.7}
           >
-            <Text style={[styles.tagText, { color: theme.colors.text }]}>
+            <Text style={[styles.tagText, { color: theme.colors.buttonText }]}>
               {tag}
             </Text>
           </TouchableOpacity>
@@ -499,19 +503,22 @@ const styles = StyleSheet.create({
   },
   textContent: {
     flex: 1,
-    paddingLeft: 10,
+    marginLeft: 10,
     // padding: 0,
-    paddingRight: 10,
+    // paddingRight: 15,
     width: SCREEN_WIDTH - 120,
     position: "relative",
     minHeight: 80,
+    textAlignVertical: "center",
+    // borderColor: "red",
+    borderWidth: 1,
   },
   title: {
-    fontSize: 15,
+    fontSize: 14,
     fontWeight: "bold",
-    marginVertical: 5,
-    paddingTop: 5,
-    // height: 55,
+    // marginVertical: 5,
+    // paddingTop: 5,
+    height: 55,
     // lineHeight: 21,
   },
   image: {
@@ -527,8 +534,8 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     justifyContent: "space-between",
     width: "100%",
-    marginTop: "4%",
-    // top: 8,
+    // marginTop: "4%",
+    // bottom: 8,
     // borderColor: "brown",
     // borderWidth: 1,
   },
@@ -565,6 +572,11 @@ const styles = StyleSheet.create({
     padding: 5,
     fontSize: 17,
   },
+  emptyTagsContainer: {
+    height: 24,
+    // borderColor: "green",
+    borderWidth: 1,
+  },
   tagsContainer: {
     flexDirection: "row",
     // flexWrap: "wrap",
@@ -572,20 +584,26 @@ const styles = StyleSheet.create({
     marginTop: 10,
     // marginBottom: 4,
     // marginLeft: 10,
+    // borderColor: "green",
+    borderWidth: 1,
   },
   tagPill: {
     paddingHorizontal: 8,
     paddingVertical: 4,
     borderRadius: 8,
     marginRight: 4,
-    marginBottom: 4,
+    // marginBottom: 4,
   },
   tagText: {
     fontSize: 12,
   },
   moreTagsText: {
     fontSize: 12,
-    alignContent: "center",
+    textAlign: "center",
+    textAlignVertical: "center",
+    alignSelf: "center",
+    // borderColor: "red",
+    // borderWidth: 1,
   }
 });
 
