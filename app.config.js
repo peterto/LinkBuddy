@@ -43,7 +43,7 @@ export default {
     "name": getAppName(),
     "scheme": getSchemeName(),
     "slug": "LinkBuddy",
-    "version": "1.3.1",
+    "version": "1.3.2",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
     "userInterfaceStyle": "automatic",
