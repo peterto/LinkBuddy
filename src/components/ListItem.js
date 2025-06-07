@@ -191,7 +191,9 @@ const ListItem = ({
     // Navigate to LinksByTagScreen with the selected tag
     Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Light);
     navigation.push("LinksByTagScreen", {
-      tags: { name: tagName }
+      path: "bytag",
+      tags: { name: tagName },
+      title: `#${tagName}`,
     });
   };
 
