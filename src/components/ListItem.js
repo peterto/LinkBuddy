@@ -514,6 +514,7 @@ const styles = StyleSheet.create({
     textAlignVertical: "center",
     // borderColor: "red",
     borderWidth: 1,
+    borderColor: "transparent",
   },
   title: {
     fontSize: 14,
@@ -578,6 +579,7 @@ const styles = StyleSheet.create({
     height: 24,
     // borderColor: "green",
     borderWidth: 1,
+    borderColor: "transparent",
   },
   tagsContainer: {
     flexDirection: "row",
@@ -588,6 +590,7 @@ const styles = StyleSheet.create({
     // marginLeft: 10,
     // borderColor: "green",
     borderWidth: 1,
+    borderColor: "transparent",
   },
   tagPill: {
     paddingHorizontal: 8,
