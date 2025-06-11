@@ -1,8 +1,4 @@
 {
-  "cli": {
-    "version": ">= 13.4.1",
-    "appVersionSource": "remote"
-  },
   "build": {
     "development": {
       "developmentClient": true,
