@@ -40,12 +40,12 @@ const getSchemeName = () => {
 
 export default {
     // "name": IS_DEV ? "LinkBuddy (Dev)" : "LinkBuddy",
-    // "name": getAppName(),
-    // "scheme": getSchemeName(),
-    // "slug": "LinkBuddy",
-    "name": "linkbuddydev",
-    "scheme": "linkbuddydev",
-    "slug": "LinkBuddydev",
+    "name": getAppName(),
+    "scheme": getSchemeName(),
+    "slug": "LinkBuddy",
+    // "name": "linkbuddydev",
+    // "scheme": "linkbuddydev",
+    // "slug": "LinkBuddydev",
     "version": "1.3.3",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
