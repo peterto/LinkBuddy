@@ -90,7 +90,14 @@ export default {
         }
       ],
       [
-        "expo-share-intent"
+        "expo-share-intent",
+        {
+          "iosActivationRules": {
+            "NSExtensionActivationSupportsWebURLWithMaxCount": 1,
+            "NSExtensionActivationSupportsText": true
+          },
+          "androidIntentFilters": ["text/*"]
+        }
       ],
       [
         "expo-sqlite"
