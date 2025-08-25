@@ -41,10 +41,10 @@ const AddLinkScreen = ({ navigation }) => {
   const { hasShareIntent, shareIntent, resetShareIntent } =
     useShareIntentContext();
 
-    // console.log("hasShareIntent", hasShareIntent);
-    
+  // console.log("hasShareIntent", hasShareIntent);
 
-  const checkAndPasteClipboardUrl = async () => {
+
+  const checkSharedUrl = async () => {
     // console.log("hasShareIntent", hasShareIntent);
     if (hasShareIntent && shareIntent.text) {
       // console.log("shareIntent:", shareIntent);
@@ -122,9 +122,19 @@ const AddLinkScreen = ({ navigation }) => {
         // Pre-fill with metadata from the URL
         // setTitle(metadataData.metadata.title || "");
         // setDescription(metadataData.metadata.description || "");
-        setTitle(shareIntent.meta.title || metadataData.metadata.title || "");
-        setDescription(shareIntent.meta.Description || metadataData.metadata.description || ""); 
+        // setTitle(shareIntent.meta.title || metadataData.metadata.title || "");
+        // setDescription(shareIntent.meta.Description || metadataData.metadata.description || ""); 
         // setTags(metadataData.auto_tags.join(", "));
+
+        if (hasShareIntent) {
+          // console.log("shareIntent.meta.title:", shareIntent.meta.title );
+          setTitle(shareIntent.meta.title || metadataData.metadata.title || "");
+          setDescription(shareIntent.meta.Description || metadataData.metadata.description || "");
+        } else {
+          setTitle(metadataData.metadata.title || "");
+          setDescription(metadataData.metadata.description || "");
+        }
+
         setTags(metadataData.auto_tags);
         // const autoTags = metadataData.auto_tags.map(tag => ({
         //   label: tag,
@@ -215,7 +225,7 @@ const AddLinkScreen = ({ navigation }) => {
   };
 
   useEffect(() => {
-    checkAndPasteClipboardUrl();
+    checkSharedUrl();
   }, []);
 
   useEffect(() => {
