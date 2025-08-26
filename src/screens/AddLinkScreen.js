@@ -44,7 +44,7 @@ const AddLinkScreen = ({ navigation }) => {
   // console.log("hasShareIntent", hasShareIntent);
 
 
-  const checkSharedUrl = async () => {
+  const checkAndPasteClipboardUrl  = async () => {
     // console.log("hasShareIntent", hasShareIntent);
     if (hasShareIntent && shareIntent.text) {
       // console.log("shareIntent:", shareIntent);
@@ -225,7 +225,7 @@ const AddLinkScreen = ({ navigation }) => {
   };
 
   useEffect(() => {
-    checkSharedUrl();
+    checkAndPasteClipboardUrl ();
   }, []);
 
   useEffect(() => {
