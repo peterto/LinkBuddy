@@ -128,11 +128,11 @@ const AddLinkScreen = ({ navigation }) => {
 
         if (hasShareIntent) {
           // console.log("shareIntent.meta.title:", shareIntent.meta.title );
-          setTitle(shareIntent.meta.title || metadataData.metadata.title || "");
-          setDescription(shareIntent.meta.Description || metadataData.metadata.description || "");
+          setTitle(shareIntent.meta.title ?? metadataData.metadata.title ?? "");
+          setDescription(shareIntent.meta.Description ?? metadataData.metadata.description ?? "");
         } else {
-          setTitle(metadataData.metadata.title || "");
-          setDescription(metadataData.metadata.description || "");
+          setTitle(metadataData.metadata.title ?? "");
+          setDescription(metadataData.metadata.description ?? "");
         }
 
         setTags(metadataData.auto_tags);
