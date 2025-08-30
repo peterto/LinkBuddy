@@ -3,7 +3,7 @@ name: Android App Release Build APK
 on:
   push:
     branches:
-      - enhancement/github-workflow-updates
+      - master
     tags:
       - '*'
 jobs:
